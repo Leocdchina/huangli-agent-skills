@@ -4,6 +4,9 @@
 
 [![Release](https://img.shields.io/github/v/release/Leocdchina/huangli-agent-skills?display_name=tag)](https://github.com/Leocdchina/huangli-agent-skills/releases)
 [![License](https://img.shields.io/github/license/Leocdchina/huangli-agent-skills)](./LICENSE)
+[![English](https://img.shields.io/badge/lang-English-blue)](./README.en.md)
+
+English version: `README.en.md`
 
 This repository is **fully decoupled** from application code.
 
@@ -117,6 +120,7 @@ See `BEST_PRACTICES.md` for the applied authoring standards.
 ## Release Contents
 
 - `README.md` — product homepage and compatibility
+- `README.en.md` — English product homepage
 - `INSTALL.md` — multi-client install guidance
 - `BEST_PRACTICES.md` — skill-writing standards
 - `CHANGELOG.md`
