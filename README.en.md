@@ -23,18 +23,6 @@ This repository is skills-only and excludes frontend/backend application code.
 
 ---
 
-## 🔔 Latest Status Summary (2026-04-09)
-
-- Unified brand name applied everywhere: `中国农历黄历吉凶 · Zhongguo Nongli Huangli Jixiong · China Lunar Almanac (Auspicious & Inauspicious)`
-- ClawHub install slug switched to: `zhongguo-nongli-huangli-jixiong`
-- Expanded bilingual keyword coverage synced:
-  - 中国农历 / 黄历 / 老黄历 / 农历查询 / 吉凶 / 吉日 / 宜忌 / 择日 / 搬家吉日 / 结婚吉日 / 开业吉日
-  - Chinese lunar calendar / Chinese almanac / Huangli / Nongli / auspicious day / inauspicious day / lucky date / wedding date selection / move-in date selection / feng shui date / jixiong
-- Metadata consistency fixed: `homepage`, `repository`, `publisher`, `required_env`, `outbound_hosts`
-- Production API Base: `https://api.nongli.skill.4glz.com` (access verified)
-
----
-
 ## Website, Token, and Getting Started
 
 - Website: https://nongli.skill.4glz.com
@@ -106,7 +94,6 @@ See `BEST_PRACTICES.md`.
 1、默认免费额度：10 个唯一日期/天
 2、超额返回429，并提醒手动重置，用户登陆控制台进行手动重置。
 3、不限制重置次数。
-- Never commit real tokens
 
 ---
 
