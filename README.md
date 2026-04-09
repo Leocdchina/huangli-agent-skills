@@ -6,6 +6,18 @@
 [![License](https://img.shields.io/github/license/Leocdchina/huangli-agent-skills)](./LICENSE)
 [![English](https://img.shields.io/badge/lang-English-blue)](./README.en.md)
 
+## ⚡ ClawHub 安装命令（复制即用）
+
+```bash
+# 1) 登录 ClawHub（若尚未登录）
+clawhub login
+
+# 2) 安装统一技能
+clawhub install huangli-toolkit
+```
+
+安装后，把 `HUANGLI_TOKEN` 配好即可使用（见下方“官网、Token 申请、使用入口”）。
+
 English version: `README.en.md`
 
 This repository is fully decoupled from app code and contains only skill assets.
