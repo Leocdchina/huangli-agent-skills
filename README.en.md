@@ -1,138 +1,78 @@
 # Huangli Agent Skills
 
-> Standalone public skill package for Chinese Lunar Calendar workflows.
+> Standalone public **single-skill** package for Chinese Lunar Calendar workflows.
 
 [![Release](https://img.shields.io/github/v/release/Leocdchina/huangli-agent-skills?display_name=tag)](https://github.com/Leocdchina/huangli-agent-skills/releases)
 [![License](https://img.shields.io/github/license/Leocdchina/huangli-agent-skills)](./LICENSE)
 
 Chinese version: `README.md`
 
-This repository is intentionally **skills-only**.
-
-It includes:
-- `SKILL.md` definitions
-- executable scripts
-- product docs (install, best practices, release notes)
-
-It excludes:
-- frontend application code
-- backend service code
+This repository is skills-only and excludes frontend/backend application code.
 
 ---
 
-## What this package provides
+## Website, Token, and Getting Started
 
-`Huangli Agent Skills` enables skill-capable AI agents to:
-- query one specific date
-- query date ranges in batch
-- perform keyword filtering across returned records
+- Website: https://nongli.skill.4glz.com
+- Register: https://nongli.skill.4glz.com/register
+- Login: https://nongli.skill.4glz.com/login
+- Dashboard (request/copy token): https://nongli.skill.4glz.com/dashboard
+- API Base: `https://api.nongli.skill.4glz.com`
 
-Core API endpoints:
-- `GET /api/lunar/date/{YYYY-MM-DD}`
-- `POST /api/lunar/batch`
-
----
-
-## Skills
-
-- `huangli-query-by-date`
-- `huangli-query-batch`
-- `huangli-search-by-keyword`
-
----
-
-## Quick Start
-
-### 1) Configure env
+Set environment variables:
 
 ```bash
 export HUANGLI_TOKEN="your_token_here"
 export HUANGLI_BASE="https://api.nongli.skill.4glz.com"
 ```
 
-### 2) Run scripts
+---
+
+## Product Shape
+
+The package now keeps one unified skill only:
+
+- `huangli-toolkit`
+
+Built-in modes:
+- `by-date` (single date)
+- `batch` (multi-date/range)
+- `search` (keyword lookup across date ranges)
+
+---
+
+## Quick Usage
 
 ```bash
-python3 huangli-query-by-date/query.py 2027-08-08
-python3 huangli-query-batch/query.py 2027-08-01 2027-08-07 --filter 搬家
-python3 huangli-search-by-keyword/search.py 甲子日 --year 2027
+python3 huangli-toolkit/toolkit.py by-date 2027-08-08
+python3 huangli-toolkit/toolkit.py batch 2027-08-01 2027-08-31 --filter 搬家
+python3 huangli-toolkit/toolkit.py search 甲子日 --year 2027
 ```
 
-### 3) Install in your client
+---
 
-See `INSTALL.md`.
+## Install in Agent Clients
+
+See `INSTALL.md` for OpenClaw, Cursor, Claude Code and other skill-capable tools.
 
 ---
 
-## Supported Skill-capable Agent Tools
+## Best-practice design choices
 
-Based on ecosystem listings and public client docs:
+- trigger-first skill description
+- natural-language time expansion before API calls
+- batch-first strategy for range requests
+- progressive disclosure for maintainable context size
 
-### Coding/CLI agents
-- OpenClaw
-- Cursor
-- Claude Code
-- Gemini CLI
-- Codex CLI
-- Amp
-- Roo Code
-- Goose
-- OpenHands
-- OpenCode
-- Continue
-- Trae Agent
-- AutoHand Code CLI
-- Factory CLI
-- Command Code
-- VTCode
-- Mistral Vibe
-- Kiro
-
-### IDE/platform assistants
-- GitHub Copilot Agents / VS Code Copilot Chat
-- JetBrains Junie
-- Spring AI
-- Databricks Assistant
-- Snowflake Cortex Code
-- Laravel Boost
-- Letta Code
-- Firebender Multi-Agent
-- ONA Agents.md skills
-- Emdash
-
-> Support behavior may vary by version and integration mode.
+See `BEST_PRACTICES.md`.
 
 ---
 
-## Product-quality design choices
+## Quota & security
 
-- trigger-focused skill descriptions
-- clear skill boundaries (single vs batch vs keyword)
-- true batch implementation with chunking
-- progressive disclosure-friendly docs and structure
-- deterministic script interfaces and errors
-
-See `BEST_PRACTICES.md` for details.
-
----
-
-## Release assets
-
-- `README.md` / `README.en.md`
-- `INSTALL.md`
-- `BEST_PRACTICES.md`
-- `CHANGELOG.md`
-- `RELEASE_NOTES_v1.0.0.md`
-- `LICENSE`
-- three production-ready skills
-
----
-
-## Security and quota
-
-- Do not commit real tokens.
-- Default free quota: 10 unique dates/day.
-- Repeated same-date query does not consume extra unique-date quota.
+- Free baseline: 10 unique dates/day
+- Repeated same-date queries do not consume extra unique-date quota
+- Never commit real tokens
 
 ---
 

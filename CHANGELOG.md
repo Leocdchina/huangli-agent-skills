@@ -1,5 +1,19 @@
 # Changelog
 
+## v1.1.0 - 2026-04-09
+
+### Added
+- new unified skill `huangli-toolkit` with three modes: `by-date`, `batch`, `search`
+- one-command style toolkit scripts (`toolkit.py`, `toolkit.sh`)
+- dedicated reference document for website/token/usage guidance
+
+### Changed
+- product docs now explicitly explain official website, token application path, and quick usage
+- install guide simplified to single folder deployment (`huangli-toolkit`)
+
+### Clean-up
+- legacy split skills (`huangli-query-by-date`, `huangli-query-batch`, `huangli-search-by-keyword`) are removed from this standalone package and replaced by unified toolkit
+
 ## v1.0.0 - 2026-04-08
 
 ### Added

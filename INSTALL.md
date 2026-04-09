@@ -1,72 +1,64 @@
-# Install Guide (Standalone Skill Package)
+# Install Guide (Unified Skill)
 
-This package is client-agnostic and can be installed into any agent client that supports `SKILL.md` style skills.
+This package now ships one unified skill folder:
 
-## Prerequisites
+- `huangli-toolkit`
+
+## 1) 先申请 Token
+
+1. 打开官网：https://nongli.skill.4glz.com
+2. 注册：https://nongli.skill.4glz.com/register
+3. 登录：https://nongli.skill.4glz.com/login
+4. 控制台获取 Token：https://nongli.skill.4glz.com/dashboard
+
+## 2) 配置环境变量
 
 ```bash
 export HUANGLI_TOKEN="your_token_here"
 export HUANGLI_BASE="https://api.nongli.skill.4glz.com"
 ```
 
----
+## 3) 安装到不同 Agent 客户端
 
-## OpenClaw
+### OpenClaw
 
 ```bash
 mkdir -p ~/.openclaw/skills/huangli
-cp -R huangli-query-by-date ~/.openclaw/skills/huangli/
-cp -R huangli-query-batch ~/.openclaw/skills/huangli/
-cp -R huangli-search-by-keyword ~/.openclaw/skills/huangli/
+cp -R huangli-toolkit ~/.openclaw/skills/huangli/
 ```
 
-## Cursor
+### Cursor
 
 ```bash
 mkdir -p .cursor/skills/huangli
-cp -R huangli-query-by-date .cursor/skills/huangli/
-cp -R huangli-query-batch .cursor/skills/huangli/
-cp -R huangli-search-by-keyword .cursor/skills/huangli/
+cp -R huangli-toolkit .cursor/skills/huangli/
 ```
 
-## Claude Code
+### Claude Code
 
 ```bash
 mkdir -p ~/.claude/skills/huangli
-cp -R huangli-query-by-date ~/.claude/skills/huangli/
-cp -R huangli-query-batch ~/.claude/skills/huangli/
-cp -R huangli-search-by-keyword ~/.claude/skills/huangli/
+cp -R huangli-toolkit ~/.claude/skills/huangli/
 ```
 
-## Gemini CLI / Codex CLI / Other skill-capable clients
+### Gemini CLI / Codex CLI / 其他支持 SKILL.md 的工具
 
-Use the same pattern:
-1. Find client skill directory in official docs
-2. Copy each skill folder (with `SKILL.md` intact)
-3. Restart client if required
+同理：
+1. 找到客户端技能目录
+2. 复制 `huangli-toolkit/`
+3. 重启客户端或刷新技能索引
 
----
-
-## Verify Installation
-
-### API sanity check
+## 4) 验证
 
 ```bash
 curl "$HUANGLI_BASE/api/quota" \
   -H "Authorization: Bearer $HUANGLI_TOKEN"
+
+python3 huangli-toolkit/toolkit.py by-date 2027-08-08
 ```
 
-### Script sanity check
+## 5) 故障排查
 
-```bash
-python3 huangli-query-by-date/query.py 2027-08-08
-python3 huangli-query-batch/query.py 2027-08-01 2027-08-03
-```
-
----
-
-## Troubleshooting
-
-- `401 Unauthorized`: invalid/expired token
-- `429 Too Many Requests`: daily quota exceeded; reset via dashboard
-- no skill triggering: make sure client scanned skill path and supports `SKILL.md`
+- `401`：Token 无效/过期
+- `429`：当日额度超限，去控制台重置
+- 不触发：确认客户端技能目录和 SKILL.md 支持状态
