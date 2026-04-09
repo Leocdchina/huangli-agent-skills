@@ -5,6 +5,18 @@
 [![Release](https://img.shields.io/github/v/release/Leocdchina/huangli-agent-skills?display_name=tag)](https://github.com/Leocdchina/huangli-agent-skills/releases)
 [![License](https://img.shields.io/github/license/Leocdchina/huangli-agent-skills)](./LICENSE)
 
+## ⚡ ClawHub Quick Install (Copy & Run)
+
+```bash
+# 1) Login to ClawHub (if not already logged in)
+clawhub login
+
+# 2) Install the unified skill
+clawhub install huangli-toolkit
+```
+
+After installation, configure `HUANGLI_TOKEN` (see "Website, Token, and Getting Started").
+
 Chinese version: `README.md`
 
 This repository is skills-only and excludes frontend/backend application code.
