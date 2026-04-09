@@ -4,6 +4,11 @@
 
 This release consolidates the previous 3-skill layout into one unified production skill: `huangli-toolkit`.
 
+Quota description (public copy):
+1、默认免费额度：10 个唯一日期/天
+2、超额返回429，并提醒手动重置，用户登陆控制台进行手动重置。
+3、不限制重置次数。
+
 ## Why this release
 
 - easier installation (single folder)

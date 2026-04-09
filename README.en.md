@@ -82,10 +82,9 @@ See `BEST_PRACTICES.md`.
 
 ## Quota & security
 
-- Free baseline: 10 unique dates/day
-- Repeated same-date queries do not consume extra unique-date quota
-- If exceeded, API returns `429` and prompts dashboard manual reset
-- Manual reset count is unlimited
+1、默认免费额度：10 个唯一日期/天
+2、超额返回429，并提醒手动重置，用户登陆控制台进行手动重置。
+3、不限制重置次数。
 - Never commit real tokens
 
 ---
