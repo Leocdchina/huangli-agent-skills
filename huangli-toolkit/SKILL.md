@@ -1,8 +1,10 @@
 ---
-name: huangli-toolkit
+name: zhongguo-nongli-huangli-jixiong
 license: MIT
 compatibility: Requires Python 3.9+ or bash with curl. Set HUANGLI_TOKEN env var (Bearer token from https://nongli.skill.4glz.com/dashboard). Needs HTTPS outbound access to api.nongli.skill.4glz.com.
 description: |
+  中国农历黄历吉凶 · Zhongguo Nongli Huangli Jixiong · China Lunar Almanac (Auspicious & Inauspicious).
+
   Unified Huangli skill for common workflows: single-date query, date-range batch query,
   and keyword search over a date range.
 
@@ -20,7 +22,7 @@ description: |
   3、不限制重置次数。
 ---
 
-# Huangli Toolkit (Unified Skill)
+# 中国农历黄历吉凶 · Zhongguo Nongli Huangli Jixiong · China Lunar Almanac (Auspicious & Inauspicious)
 
 ## 官网与 Token
 

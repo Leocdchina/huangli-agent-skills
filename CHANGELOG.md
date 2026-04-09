@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.1.1 - 2026-04-09
+
+### Changed
+- project/skill branding renamed for searchability: **中国农历黄历吉凶 · Zhongguo Nongli Huangli Jixiong · China Lunar Almanac (Auspicious & Inauspicious)**
+- ClawHub install slug updated to: `zhongguo-nongli-huangli-jixiong`
+- docs now explicitly include Chinese + English + pinyin naming keywords (中国农历 / 黄历 / 吉凶 / nongli / huangli / jixiong)
+
 ## v1.1.0 - 2026-04-09
 
 ### Added

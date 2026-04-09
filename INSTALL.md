@@ -2,7 +2,7 @@
 
 This package now ships one unified skill folder:
 
-- `huangli-toolkit`
+- `huangli-toolkit` (publish slug: `zhongguo-nongli-huangli-jixiong`)
 
 ## 1) 先申请 Token
 

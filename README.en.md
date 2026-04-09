@@ -1,4 +1,4 @@
-# Huangli Agent Skills
+# 中国农历黄历吉凶 · Zhongguo Nongli Huangli Jixiong · China Lunar Almanac (Auspicious & Inauspicious)
 
 > Standalone public **single-skill** package for Chinese Lunar Calendar workflows.
 
@@ -11,8 +11,8 @@
 # 1) Login to ClawHub (if not already logged in)
 clawhub login
 
-# 2) Install the unified skill
-clawhub install huangli-toolkit
+# 2) Install the unified skill (new searchable name)
+clawhub install zhongguo-nongli-huangli-jixiong
 ```
 
 After installation, configure `HUANGLI_TOKEN` (see "Website, Token, and Getting Started").
@@ -56,6 +56,7 @@ Built-in modes:
 ## Quick Usage
 
 ```bash
+clawhub install zhongguo-nongli-huangli-jixiong
 python3 huangli-toolkit/toolkit.py by-date 2027-08-08
 python3 huangli-toolkit/toolkit.py batch 2027-08-01 2027-08-31 --filter 搬家
 python3 huangli-toolkit/toolkit.py search 甲子日 --year 2027

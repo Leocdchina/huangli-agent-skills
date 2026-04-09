@@ -1,8 +1,8 @@
-# Release Notes — v1.1.0
+# Release Notes — v1.1.1
 
 ## Summary
 
-This release consolidates the previous 3-skill layout into one unified production skill: `huangli-toolkit`.
+This release consolidates the previous 3-skill layout into one unified production skill: `zhongguo-nongli-huangli-jixiong` (alias folder: `huangli-toolkit`).
 
 Quota description (public copy):
 1、默认免费额度：10 个唯一日期/天
@@ -34,7 +34,7 @@ Quota description (public copy):
 
 ```bash
 clawhub login
-clawhub install huangli-toolkit
+clawhub install zhongguo-nongli-huangli-jixiong
 ```
 
 安装后配置：
