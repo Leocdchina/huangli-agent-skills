@@ -12,7 +12,7 @@ outbound_hosts:
   - api.nongli.skill.4glz.com
 description: |
   中国农历黄历吉凶 · Zhongguo Nongli Huangli Jixiong · China Lunar Almanac (Auspicious & Inauspicious).
-  Keywords / 关键词: 中国农历, 黄历, 吉凶, Chinese lunar calendar, Chinese almanac, auspicious, inauspicious, huangli, nongli, jixiong.
+  Keywords / 关键词: 中国农历, 黄历, 老黄历, 农历查询, 吉凶, 吉日, 宜忌, 择日, 搬家吉日, 结婚吉日, 开业吉日, Chinese lunar calendar, Chinese almanac, Huangli, Nongli, auspicious day, inauspicious day, lucky date, wedding date selection, move-in date selection, feng shui date, jixiong.
 
   Unified Huangli skill for common workflows: single-date query, date-range batch query,
   and keyword search over a date range.

@@ -94,7 +94,7 @@ python3 huangli-toolkit/toolkit.py search 甲子日 --year 2027
 
 ## 关键词 / Keywords（用于搜索）
 
-中国农历、黄历、吉凶、Chinese lunar calendar、Chinese almanac、auspicious、inauspicious、huangli、nongli、jixiong
+中国农历、黄历、老黄历、农历查询、吉凶、吉日、宜忌、择日、搬家吉日、结婚吉日、开业吉日、Chinese lunar calendar、Chinese almanac、Huangli、Nongli、auspicious day、inauspicious day、lucky date、wedding date selection、move-in date selection、feng shui date、jixiong
 
 ---
 
