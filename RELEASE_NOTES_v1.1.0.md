@@ -25,6 +25,20 @@ This release consolidates the previous 3-skill layout into one unified productio
 - `huangli-toolkit/references/reference.md`
 - updated docs (`README`, `README.en`, `INSTALL`, `CHANGELOG`)
 
+## 快速安装（ClawHub）
+
+```bash
+clawhub login
+clawhub install huangli-toolkit
+```
+
+安装后配置：
+
+```bash
+export HUANGLI_TOKEN="your_token_here"
+export HUANGLI_BASE="https://api.nongli.skill.4glz.com"
+```
+
 ## Unified usage
 
 ```bash
