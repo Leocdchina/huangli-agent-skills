@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.1.2 - 2026-04-09
+
+### Summary
+- added project-wide status summary sections in Chinese and English README
+- documented production API Base accessibility (`https://api.nongli.skill.4glz.com`)
+- synchronized latest naming/keywords/metadata state for easier maintenance and auditing
+
 ## v1.1.1 - 2026-04-09
 
 ### Changed

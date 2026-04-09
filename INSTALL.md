@@ -50,6 +50,9 @@ cp -R huangli-toolkit ~/.claude/skills/huangli/
 
 ## 4) 验证
 
+> 当前生产 API Base：`https://api.nongli.skill.4glz.com`（已验证可访问）。
+> 若你只是使用线上服务，无需自行部署服务器。
+
 ```bash
 curl "$HUANGLI_BASE/api/quota" \
   -H "Authorization: Bearer $HUANGLI_TOKEN"
