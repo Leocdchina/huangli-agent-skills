@@ -30,6 +30,8 @@ This repository is fully decoupled from app code and contains only skill assets.
 - 注册：https://nongli.skill.4glz.com/register
 - 登录：https://nongli.skill.4glz.com/login
 - 控制台（申请/复制 Token）：https://nongli.skill.4glz.com/dashboard
+- GitHub 仓库（源码）：https://github.com/Leocdchina/huangli-agent-skills
+- 发布者：Leocdchina
 - API Base：`https://api.nongli.skill.4glz.com`
 
 先在控制台拿到 Token，然后设置：

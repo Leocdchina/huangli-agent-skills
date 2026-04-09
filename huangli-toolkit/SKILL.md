@@ -1,7 +1,15 @@
 ---
 name: zhongguo-nongli-huangli-jixiong
 license: MIT
-compatibility: Requires Python 3.9+ or bash with curl. Set HUANGLI_TOKEN env var (Bearer token from https://nongli.skill.4glz.com/dashboard). Needs HTTPS outbound access to api.nongli.skill.4glz.com.
+homepage: https://nongli.skill.4glz.com
+repository: https://github.com/Leocdchina/huangli-agent-skills
+publisher: Leocdchina
+compatibility: Requires Python 3.9+ or bash with curl. Set required HUANGLI_TOKEN env var (Bearer token from https://nongli.skill.4glz.com/dashboard). Optional HUANGLI_BASE env var overrides API base. Needs HTTPS outbound access to api.nongli.skill.4glz.com.
+required_env:
+  - HUANGLI_TOKEN (required)
+  - HUANGLI_BASE (optional)
+outbound_hosts:
+  - api.nongli.skill.4glz.com
 description: |
   中国农历黄历吉凶 · Zhongguo Nongli Huangli Jixiong · China Lunar Almanac (Auspicious & Inauspicious).
   Keywords / 关键词: 中国农历, 黄历, 吉凶, Chinese lunar calendar, Chinese almanac, auspicious, inauspicious, huangli, nongli, jixiong.

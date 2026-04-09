@@ -29,6 +29,8 @@ This repository is skills-only and excludes frontend/backend application code.
 - Register: https://nongli.skill.4glz.com/register
 - Login: https://nongli.skill.4glz.com/login
 - Dashboard (request/copy token): https://nongli.skill.4glz.com/dashboard
+- GitHub repository (source): https://github.com/Leocdchina/huangli-agent-skills
+- Publisher: Leocdchina
 - API Base: `https://api.nongli.skill.4glz.com`
 
 Set environment variables:
