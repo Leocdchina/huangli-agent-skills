@@ -81,6 +81,12 @@ See `BEST_PRACTICES.md`.
 
 ---
 
+## Keywords / 关键词 (for search)
+
+中国农历, 黄历, 吉凶, Chinese lunar calendar, Chinese almanac, auspicious, inauspicious, huangli, nongli, jixiong
+
+---
+
 ## Quota & security
 
 1、默认免费额度：10 个唯一日期/天
