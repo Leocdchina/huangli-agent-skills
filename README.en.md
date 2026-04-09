@@ -84,6 +84,8 @@ See `BEST_PRACTICES.md`.
 
 - Free baseline: 10 unique dates/day
 - Repeated same-date queries do not consume extra unique-date quota
+- If exceeded, API returns `429` and prompts dashboard manual reset
+- Manual reset count is unlimited
 - Never commit real tokens
 
 ---
