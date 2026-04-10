@@ -73,7 +73,7 @@ python3 huangli-toolkit/toolkit.py search 甲子日 --year 2027
 
 ---
 
-## Mode 2: CLI mode
+## Mode 2: CLI mode (let the agent handle everything)
 
 Best for users who want to:
 - authorize from the terminal
