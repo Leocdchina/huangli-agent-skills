@@ -4,7 +4,7 @@
 
 ### Added
 - secure CLI device authorization helper: `huangli-toolkit/auth.py`
-- `status` command to validate local token presence and remote token validity
+- `status` command to check whether local token files exist and whether the current token still works
 - optional shell export generation and `~/.zshrc` integration helpers
 
 ### Changed

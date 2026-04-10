@@ -23,7 +23,7 @@ python3 huangli-toolkit/auth.py login
 source ~/.huangli.env
 ```
 
-> `python3 huangli-toolkit/auth.py status` 可检查本地 token 与远端有效性。
+> `python3 huangli-toolkit/auth.py status` 可检查本地 token 文件是否存在，以及当前 token 是否仍可使用。
 > 出于安全考虑，logout 与“取消绑定设备”必须在网页控制台完成。
 
 ## 3) 安装到不同 Agent 客户端

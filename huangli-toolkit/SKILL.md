@@ -36,7 +36,7 @@ description: |
 ## 官网与 Token
 
 - 官网（注册/登录）：https://nongli.skill.4glz.com
-- 控制台（获取 Token / 管理 CLI 绑定 / logout）：https://nongli.skill.4glz.com/dashboard
+- 控制台（获取 Token / 管理已绑定 CLI 设备 / logout）：https://nongli.skill.4glz.com/dashboard
 - API Base：`https://api.nongli.skill.4glz.com`
 
 可直接配置环境变量，或使用内置安全 CLI 授权：

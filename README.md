@@ -20,7 +20,7 @@ clawhub install zhongguo-nongli-huangli-jixiong
 
 English version: `README.en.md`
 
-This repository is fully decoupled from app code and contains only skill assets.
+This repository contains only end-user skill assets and usage guides.
 
 ---
 

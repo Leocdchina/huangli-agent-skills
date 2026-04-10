@@ -19,7 +19,7 @@ After installation, you can either configure `HUANGLI_TOKEN` manually or use the
 
 Chinese version: `README.md`
 
-This repository is skills-only and excludes frontend/backend application code.
+This repository contains only end-user skill assets and usage guides.
 
 ---
 
