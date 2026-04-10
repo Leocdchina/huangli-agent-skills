@@ -11,12 +11,20 @@ This package now ships one unified skill folder:
 3. 登录：https://nongli.skill.4glz.com/login
 4. 控制台获取 Token：https://nongli.skill.4glz.com/dashboard
 
-## 2) 配置环境变量
+## 2) 配置环境变量 / 或使用安全 CLI 授权
 
 ```bash
+# 方式一：手动设置
 export HUANGLI_TOKEN="your_token_here"
 export HUANGLI_BASE="https://api.nongli.skill.4glz.com"
+
+# 方式二：安全 CLI 设备授权（推荐）
+python3 huangli-toolkit/auth.py login
+source ~/.huangli.env
 ```
+
+> `python3 huangli-toolkit/auth.py status` 可检查本地 token 与远端有效性。
+> 出于安全考虑，logout 与“取消绑定设备”必须在网页控制台完成。
 
 ## 3) 安装到不同 Agent 客户端
 

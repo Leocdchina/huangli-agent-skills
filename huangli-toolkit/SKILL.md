@@ -4,7 +4,7 @@ license: MIT
 homepage: https://nongli.skill.4glz.com
 repository: https://github.com/Leocdchina/huangli-agent-skills
 publisher: Leocdchina
-compatibility: Requires Python 3.9+ or bash with curl. Set required HUANGLI_TOKEN env var (Bearer token from https://nongli.skill.4glz.com/dashboard). Optional HUANGLI_BASE env var overrides API base. Needs HTTPS outbound access to api.nongli.skill.4glz.com.
+compatibility: Requires Python 3.9+ or bash with curl. Set required HUANGLI_TOKEN env var (Bearer token from https://nongli.skill.4glz.com/dashboard), or use the included secure CLI device auth helper at `python3 auth.py login`. Optional HUANGLI_BASE env var overrides API base. Needs HTTPS outbound access to api.nongli.skill.4glz.com.
 required_env:
   - HUANGLI_TOKEN (required)
   - HUANGLI_BASE (optional)
@@ -36,14 +36,18 @@ description: |
 ## 官网与 Token
 
 - 官网（注册/登录）：https://nongli.skill.4glz.com
-- 控制台（获取 Token）：https://nongli.skill.4glz.com/dashboard
+- 控制台（获取 Token / 管理 CLI 绑定 / logout）：https://nongli.skill.4glz.com/dashboard
 - API Base：`https://api.nongli.skill.4glz.com`
 
-先配置环境变量：
+可直接配置环境变量，或使用内置安全 CLI 授权：
 
 ```bash
 export HUANGLI_TOKEN="your_token_here"
 export HUANGLI_BASE="https://api.nongli.skill.4glz.com"
+
+# 推荐：安全 CLI 设备授权
+python3 auth.py login
+python3 auth.py status
 ```
 
 ## 用法（统一入口）
@@ -70,6 +74,7 @@ python3 toolkit.py search 甲子日 --year 2027
 - 自然语言时间先展开为具体日期（YYYY-MM-DD）
 - 多日期请求优先 `POST /api/lunar/batch`
 - 关键词检索基于返回数据本地筛选（无服务端关键词搜索接口）
+- logout 与“取消绑定设备”只能在网页控制台完成，避免本地 CLI 被滥用
 
 ## 配额说明
 

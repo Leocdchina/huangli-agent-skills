@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.2.0 - 2026-04-10
+
+### Added
+- secure CLI device authorization helper: `huangli-toolkit/auth.py`
+- `status` command to validate local token presence and remote token validity
+- optional shell export generation and `~/.zshrc` integration helpers
+
+### Changed
+- docs now recommend browser-based device authorization for token application
+- docs now explicitly state that logout and device unbinding must be done in the web dashboard
+- install guide updated with secure CLI auth flow
+
 ## v1.1.1 - 2026-04-09
 
 ### Changed

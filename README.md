@@ -16,7 +16,7 @@ clawhub login
 clawhub install zhongguo-nongli-huangli-jixiong
 ```
 
-安装后，把 `HUANGLI_TOKEN` 配好即可使用（见下方“官网、Token 申请、使用入口”）。
+安装后，可直接在控制台申请 Token，或使用更安全的 CLI 设备授权流程（见下方“官网、Token 申请、使用入口”）。
 
 English version: `README.en.md`
 
@@ -34,7 +34,16 @@ This repository is fully decoupled from app code and contains only skill assets.
 - 发布者：Leocdchina
 - API Base：`https://api.nongli.skill.4glz.com`
 
-先在控制台拿到 Token，然后设置：
+先在控制台拿到 Token，或使用安全 CLI 授权：
+
+```bash
+python3 huangli-toolkit/auth.py login
+# 或
+python3 huangli-toolkit/auth.py register
+python3 huangli-toolkit/auth.py status
+```
+
+然后设置：
 
 ```bash
 export HUANGLI_TOKEN="your_token_here"
@@ -61,6 +70,10 @@ export HUANGLI_BASE="https://api.nongli.skill.4glz.com"
 ```bash
 clawhub install zhongguo-nongli-huangli-jixiong
 
+# 安全 CLI 授权（推荐）
+python3 huangli-toolkit/auth.py login
+source ~/.huangli.env
+
 # 单日
 python3 huangli-toolkit/toolkit.py by-date 2027-08-08
 
@@ -70,6 +83,8 @@ python3 huangli-toolkit/toolkit.py batch 2027-08-01 2027-08-31 --filter 搬家
 # 关键词检索
 python3 huangli-toolkit/toolkit.py search 甲子日 --year 2027
 ```
+
+> 出于安全考虑，logout 与“取消绑定设备”必须在网页控制台完成，而不是本地 CLI。
 
 ---
 

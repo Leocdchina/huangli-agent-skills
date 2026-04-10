@@ -15,7 +15,7 @@ clawhub login
 clawhub install zhongguo-nongli-huangli-jixiong
 ```
 
-After installation, configure `HUANGLI_TOKEN` (see "Website, Token, and Getting Started").
+After installation, you can either configure `HUANGLI_TOKEN` manually or use the secure CLI device authorization flow (see “Website, Token, and Getting Started”).
 
 Chinese version: `README.md`
 
@@ -33,7 +33,15 @@ This repository is skills-only and excludes frontend/backend application code.
 - Publisher: Leocdchina
 - API Base: `https://api.nongli.skill.4glz.com`
 
-Set environment variables:
+You can either copy a token from the dashboard or use secure CLI auth:
+
+```bash
+python3 huangli-toolkit/auth.py login
+python3 huangli-toolkit/auth.py register
+python3 huangli-toolkit/auth.py status
+```
+
+Then set environment variables:
 
 ```bash
 export HUANGLI_TOKEN="your_token_here"
@@ -59,10 +67,17 @@ Built-in modes:
 
 ```bash
 clawhub install zhongguo-nongli-huangli-jixiong
+
+# Secure CLI auth (recommended)
+python3 huangli-toolkit/auth.py login
+source ~/.huangli.env
+
 python3 huangli-toolkit/toolkit.py by-date 2027-08-08
 python3 huangli-toolkit/toolkit.py batch 2027-08-01 2027-08-31 --filter 搬家
 python3 huangli-toolkit/toolkit.py search 甲子日 --year 2027
 ```
+
+> For security reasons, logout and device unbinding must be done in the web dashboard, not from the local CLI.
 
 ---
 
