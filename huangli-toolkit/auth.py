@@ -8,6 +8,13 @@ Usage:
     python auth.py login --print-shell
     python auth.py login --append-zshrc
 
+Default local writes:
+    ~/.huangli_token.json   Saved token payload
+    ~/.huangli.env          Shell exports for current token
+
+Optional local write:
+    ~/.zshrc               Only modified when --append-zshrc is used
+
 Env vars:
     HUANGLI_BASE           Optional API base, default https://api.nongli.skill.4glz.com
     HUANGLI_TOKEN_FILE     Optional output path, default ~/.huangli_token.json
@@ -193,6 +200,7 @@ def main():
         print('Authorization successful.')
         print(f'Tokens saved to: {TOKEN_FILE}')
         print(f'Shell env saved to: {ENV_FILE}')
+        print('No shell config files are changed unless you explicitly use --append-zshrc.')
         if append_zshrc:
             print('Updated ~/.zshrc to source ~/.huangli.env' if zshrc_updated else '~/.zshrc already sources ~/.huangli.env')
         print(f"\nsource '{ENV_FILE}'")
@@ -203,6 +211,7 @@ def main():
             print(f"export HUANGLI_TOKEN='{data['access_token']}'")
             print(f"export HUANGLI_BASE='{BASE}'")
         print('\nNote: logout and device unbinding must be done from the web dashboard for security.')
+        print('If you do not want persistent shell changes, use --print-shell and avoid --append-zshrc.')
         break
 
 

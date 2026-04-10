@@ -89,7 +89,23 @@ clawhub login
 clawhub install zhongguo-nongli-huangli-jixiong
 ```
 
-#### Step 2: Start CLI authorization
+#### Step 2: Understand what CLI mode writes locally
+
+By default, CLI mode writes:
+- `~/.huangli_token.json`
+- `~/.huangli.env`
+
+It modifies:
+- `~/.zshrc`
+only if you explicitly pass `--append-zshrc`
+
+If you do not want shell config changes, you can use:
+
+```bash
+python3 huangli-toolkit/auth.py login --print-shell
+```
+
+#### Step 3: Start CLI authorization
 
 If you already have an account:
 
@@ -146,6 +162,9 @@ python3 huangli-toolkit/toolkit.py search 甲子日 --year 2027
 
 - `auth.py` is the recommended way to authorize CLI usage
 - `python3 huangli-toolkit/auth.py status` checks whether the current token still works
+- CLI mode writes `~/.huangli_token.json` and `~/.huangli.env` by default
+- `~/.zshrc` is modified only if you explicitly use `--append-zshrc`
+- If you do not want shell config changes, prefer web mode or use `python3 huangli-toolkit/auth.py login --print-shell`
 - logout and device unbinding must be done in the web dashboard
 
 ## More

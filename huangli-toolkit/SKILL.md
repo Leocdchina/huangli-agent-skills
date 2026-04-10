@@ -4,7 +4,7 @@ license: MIT
 homepage: https://nongli.skill.4glz.com
 repository: https://github.com/Leocdchina/huangli-agent-skills
 publisher: Leocdchina
-compatibility: Requires Python 3.9+ or bash with curl. Set required HUANGLI_TOKEN env var (Bearer token from https://nongli.skill.4glz.com/dashboard), or use the included secure CLI device auth helper at `python3 auth.py login`. Optional HUANGLI_BASE env var overrides API base. Needs HTTPS outbound access to api.nongli.skill.4glz.com.
+compatibility: Requires Python 3.9+ or bash with curl. This skill uses included Python scripts (`toolkit.py`, `auth.py`) and requires HTTPS outbound access to api.nongli.skill.4glz.com. You must either set HUANGLI_TOKEN manually (recommended for web mode) or use `python3 auth.py login` / `python3 auth.py register` for CLI mode. `auth.py` writes tokens to `~/.huangli_token.json` and shell exports to `~/.huangli.env` by default; it only modifies `~/.zshrc` if you explicitly pass `--append-zshrc`. `HUANGLI_BASE` is optional.
 required_env:
   - HUANGLI_TOKEN (required)
   - HUANGLI_BASE (optional)
@@ -38,6 +38,19 @@ description: |
 - 官网（注册/登录）：https://nongli.skill.4glz.com
 - 控制台（获取 Token / 管理已绑定 CLI 设备 / logout）：https://nongli.skill.4glz.com/dashboard
 - API Base：`https://api.nongli.skill.4glz.com`
+
+## 两种模式
+
+### 网页模式
+- 在控制台复制 Token
+- 手动设置 `HUANGLI_TOKEN`
+- 不会写入本地 token 文件或 shell 配置
+
+### CLI 模式
+- 使用 `python3 auth.py login` 或 `python3 auth.py register`
+- 默认写入 `~/.huangli_token.json` 与 `~/.huangli.env`
+- 只有显式传入 `--append-zshrc` 时才会修改 `~/.zshrc`
+- 可用 `python3 auth.py login --print-shell` 仅打印导出命令，减少持久化配置修改
 
 可直接配置环境变量，或使用内置安全 CLI 授权：
 

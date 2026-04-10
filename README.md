@@ -90,7 +90,22 @@ clawhub login
 clawhub install zhongguo-nongli-huangli-jixiong
 ```
 
-#### 第 2 步：在本地终端发起授权
+#### 第 2 步：了解 CLI 模式会写入哪些本地文件
+
+默认情况下，CLI 模式会写入：
+- `~/.huangli_token.json`
+- `~/.huangli.env`
+
+只有你显式使用 `--append-zshrc` 时，才会修改：
+- `~/.zshrc`
+
+如果你不希望改动 shell 配置，可优先使用：
+
+```bash
+python3 huangli-toolkit/auth.py login --print-shell
+```
+
+#### 第 3 步：在本地终端发起授权
 
 已有账号：
 
@@ -147,6 +162,9 @@ python3 huangli-toolkit/toolkit.py search 甲子日 --year 2027
 
 - 推荐优先使用 `auth.py` 做 CLI 授权
 - `python3 huangli-toolkit/auth.py status` 可检查当前 token 是否仍可使用
+- CLI 模式默认写入 `~/.huangli_token.json` 与 `~/.huangli.env`
+- 只有显式使用 `--append-zshrc` 时才会修改 `~/.zshrc`
+- 如果你不希望修改 shell 配置，优先使用网页模式，或使用 `python3 huangli-toolkit/auth.py login --print-shell`
 - logout 与“取消绑定设备”必须在网页控制台完成
 
 ## 更多内容

@@ -88,7 +88,22 @@ curl "$HUANGLI_BASE/api/quota" \
 
 ### 完整步骤
 
-#### 1) 在终端发起授权
+#### 1) 先了解本地持久化行为
+
+默认情况下，CLI 模式会写入：
+- `~/.huangli_token.json`
+- `~/.huangli.env`
+
+只有你显式使用 `--append-zshrc` 时，才会修改：
+- `~/.zshrc`
+
+如果你不想改动 shell 配置，可使用：
+
+```bash
+python3 huangli-toolkit/auth.py login --print-shell
+```
+
+#### 2) 在终端发起授权
 
 已有账号：
 
