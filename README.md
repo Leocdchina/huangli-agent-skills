@@ -96,8 +96,6 @@ export HUANGLI_BASE="https://api.nongli.skill.4glz.com"
 
 - 安装到不同客户端：`INSTALL.md`
 - 统一技能定义：`huangli-toolkit/SKILL.md`
-- 设计说明：`BEST_PRACTICES.md`
-- 更新记录：`CHANGELOG.md`
 
 ## License
 

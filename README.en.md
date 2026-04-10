@@ -90,8 +90,6 @@ export HUANGLI_BASE="https://api.nongli.skill.4glz.com"
 
 - Client install guide: `INSTALL.md`
 - Unified skill definition: `huangli-toolkit/SKILL.md`
-- Design notes: `BEST_PRACTICES.md`
-- Changelog: `CHANGELOG.md`
 
 ## License
 
