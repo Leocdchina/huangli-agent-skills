@@ -171,6 +171,7 @@ python3 huangli-toolkit/toolkit.py search 甲子日 --year 2027
 
 - 安装到不同客户端：`INSTALL.md`
 - 统一技能定义：`huangli-toolkit/SKILL.md`
+- 贡献与发布规范：`CONTRIBUTING.md`
 
 ## License
 

@@ -171,6 +171,7 @@ python3 huangli-toolkit/toolkit.py search 甲子日 --year 2027
 
 - Client install guide: `INSTALL.md`
 - Unified skill definition: `huangli-toolkit/SKILL.md`
+- Contribution and release standard: `CONTRIBUTING.md`
 
 ## License
 

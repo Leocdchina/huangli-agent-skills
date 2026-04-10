@@ -28,3 +28,96 @@ Not allowed:
 - Verify scripts run with required env vars
 - Check `SKILL.md` frontmatter format and limits
 - Keep docs consistent with behavior
+
+## Release process standard
+
+Use this repository release order as the standard process.
+
+### 1) Prepare content
+
+Before publishing, make sure all of the following are true:
+- user-facing docs are updated first
+- Web mode and CLI mode instructions are clear and separated
+- `SKILL.md` matches actual behavior
+- required env vars, local file writes, and optional shell changes are disclosed clearly
+- no frontend/backend app code is added to this repo
+
+### 2) Validate locally
+
+Recommended checks before release:
+
+```bash
+python3 -m py_compile huangli-toolkit/auth.py
+python3 -m py_compile huangli-toolkit/toolkit.py
+```
+
+Then review:
+- `README.md`
+- `README.en.md`
+- `INSTALL.md`
+- `huangli-toolkit/SKILL.md`
+
+### 3) Push GitHub source first
+
+Always push the final release content to GitHub before publishing to ClawHub.
+
+```bash
+git add .
+git commit -m "<release message>"
+git push origin main
+```
+
+### 4) Publish to ClawHub
+
+ClawHub is the packaging/distribution release.
+
+Example:
+
+```bash
+clawhub publish "./huangli-toolkit" \
+  --version 1.2.2 \
+  --name "中国农历黄历吉凶 · Zhongguo Nongli Huangli Jixiong · China Lunar Almanac" \
+  --slug zhongguo-nongli-huangli-jixiong \
+  --changelog "<release summary>"
+```
+
+Rules:
+- version must use semver
+- changelog text must summarize user-visible changes
+- if ClawHub content changes, GitHub source must be updated to match
+
+### 5) Sync the same version back to GitHub tag/release
+
+After ClawHub publish succeeds, create the same Git tag and GitHub Release.
+
+Example:
+
+```bash
+git tag -a v1.2.2 -m "Release v1.2.2"
+git push origin v1.2.2
+
+gh release create v1.2.2 \
+  --repo Leocdchina/huangli-agent-skills \
+  --title "v1.2.2" \
+  --notes "Standard release synchronized with ClawHub version 1.2.2."
+```
+
+Rules:
+- ClawHub version and GitHub tag must match
+- GitHub Release notes should summarize the same standard release
+- GitHub is the source of truth for files; ClawHub is the packaged published version
+
+### 6) Release checklist
+
+Before marking a release complete, confirm:
+- GitHub `main` contains the final content
+- ClawHub publish succeeded
+- Git tag exists
+- GitHub Release exists
+- version numbers match across all channels
+
+### 7) Versioning rules
+
+- patch (`x.y.Z`): wording fixes, metadata fixes, small doc corrections, packaging fixes
+- minor (`x.Y.0`): new user-visible capability, new script behavior, new auth flow, new usage mode
+- major (`X.0.0`): breaking changes in usage model, packaging model, or compatibility expectations
