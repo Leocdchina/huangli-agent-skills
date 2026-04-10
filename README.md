@@ -20,9 +20,7 @@
 
 ---
 
-## 最快开始
-
-### 1) 安装 Skill
+## 先安装 Skill
 
 ```bash
 clawhub login
@@ -31,52 +29,113 @@ clawhub install zhongguo-nongli-huangli-jixiong
 
 如果你不是用 ClawHub，请看 `INSTALL.md`。
 
-### 2) 获取 Token
-
-- 官网：https://nongli.skill.4glz.com
-- 注册：https://nongli.skill.4glz.com/register
-- 登录：https://nongli.skill.4glz.com/login
-- 控制台：https://nongli.skill.4glz.com/dashboard
-
-你可以：
-- 直接在控制台复制 Token
-- 或使用内置安全 CLI 授权：
-
-```bash
-python3 huangli-toolkit/auth.py login
-source ~/.huangli.env
-```
-
-也可用：
-
-```bash
-python3 huangli-toolkit/auth.py register
-python3 huangli-toolkit/auth.py status
-```
-
-### 3) 开始使用
-
-```bash
-# 单日查询
-python3 huangli-toolkit/toolkit.py by-date 2027-08-08
-
-# 批量查询
-python3 huangli-toolkit/toolkit.py batch 2027-08-01 2027-08-31 --filter 搬家
-
-# 关键词搜索
-python3 huangli-toolkit/toolkit.py search 甲子日 --year 2027
-```
-
 ---
 
-## 使用说明
+## 使用方式一：网页模式
 
-### 环境变量
+适合人群：
+- 想先在网页里注册、登录、查看配额的人
+- 想手动复制 Token 给其他工具使用的人
+- 想在网页里管理已绑定 CLI 设备的人
+
+### 完整步骤
+
+#### 第 1 步：打开官网
+- 官网：https://nongli.skill.4glz.com
+
+#### 第 2 步：注册或登录
+- 注册：https://nongli.skill.4glz.com/register
+- 登录：https://nongli.skill.4glz.com/login
+
+#### 第 3 步：进入控制台
+- 控制台：https://nongli.skill.4glz.com/dashboard
+
+你可以在控制台完成：
+- 查看今日配额
+- 复制 Token
+- 刷新访问凭证
+- 管理已绑定 CLI 设备
+- logout
+
+#### 第 4 步：复制 Token 并设置环境变量
 
 ```bash
 export HUANGLI_TOKEN="your_token_here"
 export HUANGLI_BASE="https://api.nongli.skill.4glz.com"
 ```
+
+#### 第 5 步：开始使用
+
+```bash
+python3 huangli-toolkit/toolkit.py by-date 2027-08-08
+python3 huangli-toolkit/toolkit.py batch 2027-08-01 2027-08-31 --filter 搬家
+python3 huangli-toolkit/toolkit.py search 甲子日 --year 2027
+```
+
+---
+
+## 使用方式二：CLI 模式
+
+适合人群：
+- 希望直接在本地终端完成授权的人
+- 不想手动复制 Token 的人
+- 想让 CLI 自动保存本地环境变量的人
+
+### 完整步骤
+
+#### 第 1 步：确认已安装 Skill
+
+```bash
+clawhub login
+clawhub install zhongguo-nongli-huangli-jixiong
+```
+
+#### 第 2 步：在本地终端发起授权
+
+已有账号：
+
+```bash
+python3 huangli-toolkit/auth.py login
+```
+
+新用户：
+
+```bash
+python3 huangli-toolkit/auth.py register
+```
+
+#### 第 3 步：在浏览器中完成确认
+
+运行命令后，CLI 会：
+- 申请一次性授权码
+- 自动打开浏览器授权页
+- 等待你在网页里登录或注册并确认授权
+
+#### 第 4 步：加载本地环境变量
+
+授权成功后，CLI 会生成本地文件。执行：
+
+```bash
+source ~/.huangli.env
+```
+
+如果你想检查当前状态：
+
+```bash
+python3 huangli-toolkit/auth.py status
+```
+
+#### 第 5 步：开始使用
+
+```bash
+python3 huangli-toolkit/toolkit.py by-date 2027-08-08
+python3 huangli-toolkit/toolkit.py batch 2027-08-01 2027-08-31 --filter 搬家
+python3 huangli-toolkit/toolkit.py search 甲子日 --year 2027
+```
+
+---
+
+## 重要说明
 
 ### 配额
 
@@ -84,13 +143,11 @@ export HUANGLI_BASE="https://api.nongli.skill.4glz.com"
 2、超额返回429，并提醒用户登录控制台手动重置  
 3、不限制重置次数  
 
-### 安全说明
+### 安全
 
-- 推荐优先使用 `auth.py` 做安全 CLI 授权
-- `python3 huangli-toolkit/auth.py status` 可检查本地 token 是否仍可使用
+- 推荐优先使用 `auth.py` 做 CLI 授权
+- `python3 huangli-toolkit/auth.py status` 可检查当前 token 是否仍可使用
 - logout 与“取消绑定设备”必须在网页控制台完成
-
----
 
 ## 更多内容
 

@@ -19,9 +19,7 @@ Supported usage modes:
 
 ---
 
-## Quick start
-
-### 1) Install the skill
+## Install the skill first
 
 ```bash
 clawhub login
@@ -30,30 +28,42 @@ clawhub install zhongguo-nongli-huangli-jixiong
 
 If you use another client, see `INSTALL.md`.
 
-### 2) Get a token
+---
 
+## Mode 1: Web mode
+
+Best for users who want to:
+- register and log in on the website
+- copy a token manually
+- manage CLI devices in the dashboard
+
+### Full steps
+
+#### Step 1: Open the website
 - Website: https://nongli.skill.4glz.com
+
+#### Step 2: Register or log in
 - Register: https://nongli.skill.4glz.com/register
 - Login: https://nongli.skill.4glz.com/login
+
+#### Step 3: Open the dashboard
 - Dashboard: https://nongli.skill.4glz.com/dashboard
 
-You can either:
-- copy a token from the dashboard
-- or use the included secure CLI auth helper:
+From the dashboard you can:
+- view today’s quota
+- copy your token
+- refresh your access token
+- manage bound CLI devices
+- log out
+
+#### Step 4: Set environment variables
 
 ```bash
-python3 huangli-toolkit/auth.py login
-source ~/.huangli.env
+export HUANGLI_TOKEN="your_token_here"
+export HUANGLI_BASE="https://api.nongli.skill.4glz.com"
 ```
 
-Also available:
-
-```bash
-python3 huangli-toolkit/auth.py register
-python3 huangli-toolkit/auth.py status
-```
-
-### 3) Start using it
+#### Step 5: Start using the toolkit
 
 ```bash
 python3 huangli-toolkit/toolkit.py by-date 2027-08-08
@@ -63,14 +73,68 @@ python3 huangli-toolkit/toolkit.py search 甲子日 --year 2027
 
 ---
 
-## Usage notes
+## Mode 2: CLI mode
 
-### Environment variables
+Best for users who want to:
+- authorize from the terminal
+- avoid copying tokens manually
+- let the CLI save local environment files automatically
+
+### Full steps
+
+#### Step 1: Make sure the skill is installed
 
 ```bash
-export HUANGLI_TOKEN="your_token_here"
-export HUANGLI_BASE="https://api.nongli.skill.4glz.com"
+clawhub login
+clawhub install zhongguo-nongli-huangli-jixiong
 ```
+
+#### Step 2: Start CLI authorization
+
+If you already have an account:
+
+```bash
+python3 huangli-toolkit/auth.py login
+```
+
+If you are a new user:
+
+```bash
+python3 huangli-toolkit/auth.py register
+```
+
+#### Step 3: Complete approval in the browser
+
+The CLI will:
+- request a one-time authorization code
+- open the browser automatically
+- wait for you to log in or register and approve access
+
+#### Step 4: Load local environment variables
+
+After approval, run:
+
+```bash
+source ~/.huangli.env
+```
+
+To check status:
+
+```bash
+python3 huangli-toolkit/auth.py status
+```
+
+#### Step 5: Start using the toolkit
+
+```bash
+python3 huangli-toolkit/toolkit.py by-date 2027-08-08
+python3 huangli-toolkit/toolkit.py batch 2027-08-01 2027-08-31 --filter 搬家
+python3 huangli-toolkit/toolkit.py search 甲子日 --year 2027
+```
+
+---
+
+## Important notes
 
 ### Quota
 
@@ -81,10 +145,8 @@ export HUANGLI_BASE="https://api.nongli.skill.4glz.com"
 ### Security
 
 - `auth.py` is the recommended way to authorize CLI usage
-- `python3 huangli-toolkit/auth.py status` checks whether your current token still works
+- `python3 huangli-toolkit/auth.py status` checks whether the current token still works
 - logout and device unbinding must be done in the web dashboard
-
----
 
 ## More
 
