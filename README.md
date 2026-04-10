@@ -74,7 +74,7 @@ python3 huangli-toolkit/toolkit.py search 甲子日 --year 2027
 
 ---
 
-## 使用方式二：CLI 模式
+## 使用方式二：CLI 模式（一切交给Agent）
 
 适合人群：
 - 希望直接在本地终端完成授权的人

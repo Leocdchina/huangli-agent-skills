@@ -49,7 +49,7 @@ cp -R huangli-toolkit ~/.openclaw/skills/huangli/
 
 下面两种模式请分开使用，不要混合：
 - 模式 A：网页模式
-- 模式 B：CLI 模式
+- 模式 B：CLI 模式（一切交给Agent）
 
 ---
 
@@ -84,7 +84,7 @@ curl "$HUANGLI_BASE/api/quota" \
 
 ---
 
-## 模式 B：CLI 模式
+## 模式 B：CLI 模式（一切交给Agent）
 
 ### 完整步骤
 
