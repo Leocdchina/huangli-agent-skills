@@ -1,39 +1,18 @@
-# Install Guide (Unified Skill)
+# Install Guide
 
-This package now ships one unified skill folder:
+This package ships one skill folder:
+- `huangli-toolkit`
 
-- `huangli-toolkit` (publish slug: `zhongguo-nongli-huangli-jixiong`)
-
-## 1) 先申请 Token
-
-1. 打开官网：https://nongli.skill.4glz.com
-2. 注册：https://nongli.skill.4glz.com/register
-3. 登录：https://nongli.skill.4glz.com/login
-4. 控制台获取 Token：https://nongli.skill.4glz.com/dashboard
-
-## 2) 配置环境变量 / 或使用安全 CLI 授权
+## Option A: ClawHub
 
 ```bash
-# 方式一：手动设置
-export HUANGLI_TOKEN="your_token_here"
-export HUANGLI_BASE="https://api.nongli.skill.4glz.com"
-
-# 方式二：安全 CLI 设备授权（推荐）
-python3 huangli-toolkit/auth.py login
-source ~/.huangli.env
+clawhub login
+clawhub install zhongguo-nongli-huangli-jixiong
 ```
 
-> `python3 huangli-toolkit/auth.py status` 可检查本地 token 文件是否存在，以及当前 token 是否仍可使用。
-> 出于安全考虑，logout 与“取消绑定设备”必须在网页控制台完成。
+## Option B: Manual install
 
-## 3) 安装到不同 Agent 客户端
-
-### OpenClaw
-
-```bash
-mkdir -p ~/.openclaw/skills/huangli
-cp -R huangli-toolkit ~/.openclaw/skills/huangli/
-```
+Copy `huangli-toolkit/` into your client’s skill directory.
 
 ### Cursor
 
@@ -49,24 +28,65 @@ mkdir -p ~/.claude/skills/huangli
 cp -R huangli-toolkit ~/.claude/skills/huangli/
 ```
 
-### Gemini CLI / Codex CLI / 其他支持 SKILL.md 的工具
-
-同理：
-1. 找到客户端技能目录
-2. 复制 `huangli-toolkit/`
-3. 重启客户端或刷新技能索引
-
-## 4) 验证
+### OpenClaw
 
 ```bash
-curl "$HUANGLI_BASE/api/quota" \
-  -H "Authorization: Bearer $HUANGLI_TOKEN"
-
-python3 huangli-toolkit/toolkit.py by-date 2027-08-08
+mkdir -p ~/.openclaw/skills/huangli
+cp -R huangli-toolkit ~/.openclaw/skills/huangli/
 ```
 
-## 5) 故障排查
+### Other skill-capable clients
 
-- `401`：Token 无效/过期
-- `429`：当日额度超限，去控制台重置
-- 不触发：确认客户端技能目录和 SKILL.md 支持状态
+1. Locate the client skill directory
+2. Copy `huangli-toolkit/`
+3. Restart the client or refresh skill indexing
+
+---
+
+## Get a token
+
+- Website: https://nongli.skill.4glz.com
+- Register: https://nongli.skill.4glz.com/register
+- Login: https://nongli.skill.4glz.com/login
+- Dashboard: https://nongli.skill.4glz.com/dashboard
+
+### Recommended: secure CLI auth
+
+```bash
+python3 huangli-toolkit/auth.py login
+source ~/.huangli.env
+```
+
+Other useful commands:
+
+```bash
+python3 huangli-toolkit/auth.py register
+python3 huangli-toolkit/auth.py status
+python3 huangli-toolkit/auth.py login --print-shell
+python3 huangli-toolkit/auth.py login --append-zshrc
+```
+
+### Manual environment variables
+
+```bash
+export HUANGLI_TOKEN="your_token_here"
+export HUANGLI_BASE="https://api.nongli.skill.4glz.com"
+```
+
+> For security, logout and device unbinding must be done in the web dashboard.
+
+---
+
+## Verify installation
+
+```bash
+python3 huangli-toolkit/toolkit.py by-date 2027-08-08
+curl "$HUANGLI_BASE/api/quota" \
+  -H "Authorization: Bearer $HUANGLI_TOKEN"
+```
+
+## Troubleshooting
+
+- `401`: token missing, invalid, or expired
+- `429`: daily quota exceeded; reset in dashboard
+- Skill not triggering: confirm the folder was copied into the correct client skill directory
