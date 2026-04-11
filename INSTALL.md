@@ -1,160 +1,124 @@
 # Install Guide
 
-This package ships one skill folder:
+This repository contains one **source** skill folder:
+- `huangli-toolkit/`
+
+Published production slug on ClawHub:
 - `zhongguo-nongli-huangli-jixiong`
 
-## Step 1: Install the skill
+---
 
-### ClawHub
+## Choose install method by client/location
+
+### A) ClawHub clients (registry install)
+
+Use this when your environment supports `clawhub`:
 
 ```bash
 clawhub login
 clawhub install zhongguo-nongli-huangli-jixiong
 ```
 
-### Manual install
+Installed folder will be:
+- `skills/zhongguo-nongli-huangli-jixiong/`
 
-Copy `zhongguo-nongli-huangli-jixiong/` into your client’s skill directory.
+### B) Cursor / Claude Code / OpenClaw (GitHub command install)
+
+Use this when your client loads local `SKILL.md` folders directly.
 
 #### Cursor
 
 ```bash
-mkdir -p .cursor/skills/huangli
-cp -R zhongguo-nongli-huangli-jixiong .cursor/skills/huangli/
+tmp="$(mktemp -d)" && \
+git clone --depth 1 --filter=blob:none --sparse https://github.com/Leocdchina/huangli-agent-skills.git "$tmp" && \
+git -C "$tmp" sparse-checkout set huangli-toolkit && \
+mkdir -p .cursor/skills/huangli && \
+rm -rf .cursor/skills/huangli/zhongguo-nongli-huangli-jixiong && \
+cp -R "$tmp/huangli-toolkit" .cursor/skills/huangli/zhongguo-nongli-huangli-jixiong && \
+rm -rf "$tmp"
 ```
 
 #### Claude Code
 
 ```bash
-mkdir -p ~/.claude/skills/huangli
-cp -R zhongguo-nongli-huangli-jixiong ~/.claude/skills/huangli/
+tmp="$(mktemp -d)" && \
+git clone --depth 1 --filter=blob:none --sparse https://github.com/Leocdchina/huangli-agent-skills.git "$tmp" && \
+git -C "$tmp" sparse-checkout set huangli-toolkit && \
+mkdir -p ~/.claude/skills/huangli && \
+rm -rf ~/.claude/skills/huangli/zhongguo-nongli-huangli-jixiong && \
+cp -R "$tmp/huangli-toolkit" ~/.claude/skills/huangli/zhongguo-nongli-huangli-jixiong && \
+rm -rf "$tmp"
 ```
 
 #### OpenClaw
 
 ```bash
-mkdir -p ~/.openclaw/skills/huangli
-cp -R zhongguo-nongli-huangli-jixiong ~/.openclaw/skills/huangli/
+tmp="$(mktemp -d)" && \
+git clone --depth 1 --filter=blob:none --sparse https://github.com/Leocdchina/huangli-agent-skills.git "$tmp" && \
+git -C "$tmp" sparse-checkout set huangli-toolkit && \
+mkdir -p ~/.openclaw/skills/huangli && \
+rm -rf ~/.openclaw/skills/huangli/zhongguo-nongli-huangli-jixiong && \
+cp -R "$tmp/huangli-toolkit" ~/.openclaw/skills/huangli/zhongguo-nongli-huangli-jixiong && \
+rm -rf "$tmp"
 ```
 
 #### Other skill-capable clients
 
-1. Locate the client skill directory
-2. Copy `zhongguo-nongli-huangli-jixiong/`
-3. Restart the client or refresh skill indexing
+Use the same command pattern:
+1. Clone this GitHub repo with sparse-checkout (`huangli-toolkit` only)
+2. Copy to client skill directory as `zhongguo-nongli-huangli-jixiong`
+3. Restart client / refresh skill indexing
 
 ---
 
-## Step 2: Choose one mode only
+## Auth/query command rule (all clients)
 
-下面两种模式请分开使用，不要混合：
+Canonical commands (recommended from any project/root directory):
+
+```bash
+python3 skills/zhongguo-nongli-huangli-jixiong/auth.py login --username=<name> --password=<password>
+python3 skills/zhongguo-nongli-huangli-jixiong/auth.py register --username=<name> --email=<mail>
+python3 skills/zhongguo-nongli-huangli-jixiong/auth.py status
+
+python3 skills/zhongguo-nongli-huangli-jixiong/toolkit.py by-date 2027-08-08
+python3 skills/zhongguo-nongli-huangli-jixiong/toolkit.py batch 2027-08-01 2027-08-31 --filter 搬家
+python3 skills/zhongguo-nongli-huangli-jixiong/toolkit.py search 甲子日 --year 2027
+```
+
+Short commands (`python3 auth.py`, `python3 toolkit.py`) are only for cases where current directory is already the installed skill folder.
+
+---
+
+## Modes (do not mix)
+
 - 模式 A：网页模式
-- 模式 B：CLI 模式（一切交给Agent）
+- 模式 B：CLI 模式（一切交给 Agent）
 
----
-
-## 模式 A：网页模式
-
-### 完整步骤
-
-#### 1) 打开官网并登录
-- 官网：https://nongli.skill.4glz.com
-- 注册：https://nongli.skill.4glz.com/register
-- 登录：https://nongli.skill.4glz.com/login
-- 控制台：https://nongli.skill.4glz.com/dashboard
-
-#### 2) 在控制台复制 Token
-
-登录后，进入控制台复制你的 Token。
-
-#### 3) 设置环境变量
+### 模式 A：网页模式
 
 ```bash
 export HUANGLI_TOKEN="your_token_here"
 export HUANGLI_BASE="https://api.nongli.skill.4glz.com"
-```
-
-#### 4) 验证是否可用
-
-```bash
 python3 skills/zhongguo-nongli-huangli-jixiong/toolkit.py by-date 2027-08-08
-curl "$HUANGLI_BASE/api/quota" \
-  -H "Authorization: Bearer $HUANGLI_TOKEN"
 ```
 
----
-
-## 模式 B：CLI 模式（一切交给Agent）
-
-### 完整步骤
-
-#### 1) 先了解本地持久化行为
-
-默认情况下，CLI 模式会写入：
-- `~/.huangli_token.json`
-- `~/.huangli.env`
-
-只有你显式使用 `--append-zshrc` 时，才会修改：
-- `~/.zshrc`
-
-如果你不想改动 shell 配置，可使用：
+### 模式 B：CLI 模式
 
 ```bash
 python3 skills/zhongguo-nongli-huangli-jixiong/auth.py login --print-shell
-```
+# 或
+python3 skills/zhongguo-nongli-huangli-jixiong/auth.py login --username=<name> --password=<password>
+# 或
+python3 skills/zhongguo-nongli-huangli-jixiong/auth.py register --username=<name> --email=<mail>
 
-#### 2) 在终端发起授权
-
-已有账号：
-
-```bash
-python3 skills/zhongguo-nongli-huangli-jixiong/auth.py login
-```
-
-新用户：
-
-```bash
-python3 skills/zhongguo-nongli-huangli-jixiong/auth.py register
-```
-
-#### 2) 在浏览器中完成确认
-
-CLI 会自动打开浏览器，你只需要在网页中：
-- 登录或注册
-- 确认把当前账号授权给 CLI
-
-#### 3) 加载本地环境变量
-
-```bash
 source ~/.huangli.env
-```
-
-#### 4) 检查当前状态
-
-```bash
-python3 skills/zhongguo-nongli-huangli-jixiong/auth.py status
-```
-
-#### 5) 验证是否可用
-
-```bash
-python3 skills/zhongguo-nongli-huangli-jixiong/toolkit.py by-date 2027-08-08
-curl "$HUANGLI_BASE/api/quota" \
-  -H "Authorization: Bearer $HUANGLI_TOKEN"
-```
-
-#### 6) 可选命令
-
-```bash
-python3 skills/zhongguo-nongli-huangli-jixiong/auth.py login --print-shell
-python3 skills/zhongguo-nongli-huangli-jixiong/auth.py login --append-zshrc
 ```
 
 ---
 
 ## Troubleshooting
 
-- `401`: token missing, invalid, or expired
+- `401`: token missing/invalid/expired
 - `429`: daily quota exceeded; reset in dashboard
-- Skill not triggering: confirm the folder was copied into the correct client skill directory
-- For security, logout and device unbinding must be done in the web dashboard
+- Skill not triggering: confirm folder is in correct client skill directory
+- Logout / device unbind must be done in web dashboard

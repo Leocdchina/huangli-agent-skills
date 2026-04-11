@@ -33,7 +33,13 @@ description: |
 
 # 中国农历黄历吉凶 · Zhongguo Nongli Huangli Jixiong · China Lunar Almanac (Auspicious & Inauspicious)
 
-## 官网与 Token
+## 安装路径与客户端分流（重要）
+
+按客户端选择安装方式：
+- **ClawHub 客户端**：`clawhub install zhongguo-nongli-huangli-jixiong`
+- **Cursor / Claude Code / OpenClaw**：使用 GitHub 命令安装（稀疏克隆 `huangli-toolkit/` 后复制到本地 skills 目录，目录名为 `zhongguo-nongli-huangli-jixiong`）
+
+对应命令请参考仓库根目录 `INSTALL.md`。
 
 - 官网（注册/登录）：https://nongli.skill.4glz.com
 - 控制台（获取 Token / 管理已绑定 CLI 设备 / logout）：https://nongli.skill.4glz.com/dashboard

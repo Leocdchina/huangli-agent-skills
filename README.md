@@ -20,14 +20,13 @@
 
 ---
 
-## 先安装 Skill（生产环境推荐）
+## 安装方式（按客户端区分）
 
-```bash
-clawhub login
-clawhub install zhongguo-nongli-huangli-jixiong
-```
+不同客户端安装方式不同：
+- **ClawHub 客户端**：用 `clawhub install zhongguo-nongli-huangli-jixiong`
+- **Cursor / Claude Code / OpenClaw**：使用 GitHub 命令安装（稀疏克隆 `huangli-toolkit/` 后复制到本地 skills 目录，目录名为 `zhongguo-nongli-huangli-jixiong`）
 
-如果你不是用 ClawHub，请看 `INSTALL.md`。
+完整分流安装步骤见 `INSTALL.md`。
 
 ---
 
@@ -83,12 +82,18 @@ python3 skills/zhongguo-nongli-huangli-jixiong/toolkit.py search 甲子日 --yea
 
 ### 完整步骤
 
-#### 第 1 步：确认已安装 Skill
+#### 第 1 步：确认已安装 Skill（按客户端任选其一）
+
+**A. ClawHub 客户端**
 
 ```bash
 clawhub login
 clawhub install zhongguo-nongli-huangli-jixiong
 ```
+
+**B. Cursor / Claude Code / OpenClaw（GitHub 命令安装）**
+
+按 `INSTALL.md` 中对应客户端的一键命令执行（稀疏克隆 + 复制到本地 skills 目录）。
 
 #### 第 2 步：了解 CLI 模式会写入哪些本地文件
 

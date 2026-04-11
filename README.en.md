@@ -19,14 +19,13 @@ Supported usage modes:
 
 ---
 
-## Install the skill first (recommended for production)
+## Installation method by client
 
-```bash
-clawhub login
-clawhub install zhongguo-nongli-huangli-jixiong
-```
+Installation is different by client:
+- **ClawHub clients**: use `clawhub install zhongguo-nongli-huangli-jixiong`
+- **Cursor / Claude Code / OpenClaw**: use GitHub command install (sparse-clone `huangli-toolkit/`, then copy into local skills dir as `zhongguo-nongli-huangli-jixiong`)
 
-If you use another client, see `INSTALL.md`.
+See `INSTALL.md` for exact split instructions.
 
 ---
 
@@ -82,12 +81,18 @@ Best for users who want to:
 
 ### Full steps
 
-#### Step 1: Make sure the skill is installed
+#### Step 1: Ensure the skill is installed (choose by client)
+
+**A. ClawHub clients**
 
 ```bash
 clawhub login
 clawhub install zhongguo-nongli-huangli-jixiong
 ```
+
+**B. Cursor / Claude Code / OpenClaw (GitHub command install)**
+
+Run the one-shot command for your client from `INSTALL.md` (sparse clone + copy into local skills directory).
 
 #### Step 2: Understand what CLI mode writes locally
 
