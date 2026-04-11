@@ -12,6 +12,10 @@ outbound_hosts:
   - api.nongli.skill.4glz.com
 description: |
   中国农历黄历吉凶 · Zhongguo Nongli Huangli Jixiong · China Lunar Almanac (Auspicious & Inauspicious).
+  Runtime transparency (important):
+  - Requires `HUANGLI_TOKEN` for API calls (`HUANGLI_BASE` optional)
+  - CLI auth writes token files to user home by default: `~/.huangli_token.json` and `~/.huangli.env`
+  - `~/.zshrc` is modified only when `--append-zshrc` is explicitly used
   Keywords / 关键词: 中国农历, 黄历, 老黄历, 农历查询, 吉凶, 吉日, 宜忌, 择日, 搬家吉日, 结婚吉日, 开业吉日, Chinese lunar calendar, Chinese almanac, Huangli, Nongli, auspicious day, inauspicious day, lucky date, wedding date selection, move-in date selection, feng shui date, jixiong.
 
   Unified Huangli skill for common workflows: single-date query, date-range batch query,
