@@ -4,7 +4,7 @@ license: MIT
 homepage: https://nongli.skill.4glz.com
 repository: https://github.com/Leocdchina/huangli-agent-skills
 publisher: Leocdchina
-compatibility: Requires Python 3.9+ or bash with curl. This skill uses included Python scripts (`toolkit.py`, `auth.py`) and requires HTTPS outbound access to api.nongli.skill.4glz.com. You must either set HUANGLI_TOKEN manually (recommended for web mode) or run `python3 auth.py login --username=<name> --password=<password>` / `python3 auth.py register --username=<name> --email=<mail>` from the installed skill directory. `auth.py` writes tokens to `~/.huangli_token.json` and shell exports to `~/.huangli.env` by default; it only modifies `~/.zshrc` if you explicitly pass `--append-zshrc`. `HUANGLI_BASE` is optional.
+compatibility: Requires Python 3.9+ or bash with curl. This skill uses included Python scripts (`toolkit.py`, `auth.py`) and requires HTTPS outbound access to api.nongli.skill.4glz.com. You must either set HUANGLI_TOKEN manually (recommended for web mode) or run canonical commands from any working directory: `python3 skills/zhongguo-nongli-huangli-jixiong/auth.py login --username=<name> --password=<password>` / `python3 skills/zhongguo-nongli-huangli-jixiong/auth.py register --username=<name> --email=<mail>`. Short form `python3 auth.py ...` is only for cases where current directory is already the installed skill folder. `auth.py` writes tokens to `~/.huangli_token.json` and shell exports to `~/.huangli.env` by default; it only modifies `~/.zshrc` if you explicitly pass `--append-zshrc`. `HUANGLI_BASE` is optional.
 required_env:
   - HUANGLI_TOKEN (required)
   - HUANGLI_BASE (optional)
@@ -47,10 +47,11 @@ description: |
 - 不会写入本地 token 文件或 shell 配置
 
 ### CLI 模式
-- 使用 `python3 auth.py login` 或 `python3 auth.py register`
+- 推荐从任意目录执行：`python3 skills/zhongguo-nongli-huangli-jixiong/auth.py login` 或 `python3 skills/zhongguo-nongli-huangli-jixiong/auth.py register`
+- 若当前目录已在技能安装目录，才可使用短命令：`python3 auth.py ...`
 - 默认写入 `~/.huangli_token.json` 与 `~/.huangli.env`
 - 只有显式传入 `--append-zshrc` 时才会修改 `~/.zshrc`
-- 可用 `python3 auth.py login --print-shell` 仅打印导出命令，减少持久化配置修改
+- 可用 `python3 skills/zhongguo-nongli-huangli-jixiong/auth.py login --print-shell` 仅打印导出命令，减少持久化配置修改
 
 可直接配置环境变量，或使用内置安全 CLI 授权：
 
@@ -58,22 +59,22 @@ description: |
 export HUANGLI_TOKEN="your_token_here"
 export HUANGLI_BASE="https://api.nongli.skill.4glz.com"
 
-# 推荐：安全 CLI 设备授权
-python3 auth.py login
-python3 auth.py status
+# 推荐：安全 CLI 设备授权（任意目录）
+python3 skills/zhongguo-nongli-huangli-jixiong/auth.py login
+python3 skills/zhongguo-nongli-huangli-jixiong/auth.py status
 ```
 
 ## 用法（统一入口）
 
 ```bash
 # 1) 单日查询
-python3 toolkit.py by-date 2027-08-08
+python3 skills/zhongguo-nongli-huangli-jixiong/toolkit.py by-date 2027-08-08
 
 # 2) 区间批量查询（支持筛选）
-python3 toolkit.py batch 2027-08-01 2027-08-31 --filter 搬家
+python3 skills/zhongguo-nongli-huangli-jixiong/toolkit.py batch 2027-08-01 2027-08-31 --filter 搬家
 
 # 3) 关键词搜索
-python3 toolkit.py search 甲子日 --year 2027
+python3 skills/zhongguo-nongli-huangli-jixiong/toolkit.py search 甲子日 --year 2027
 ```
 
 ## 何时用哪种模式

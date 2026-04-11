@@ -47,9 +47,9 @@ export HUANGLI_BASE="https://api.nongli.skill.4glz.com"
 ## Unified usage
 
 ```bash
-python3 huangli-toolkit/toolkit.py by-date 2027-08-08
-python3 huangli-toolkit/toolkit.py batch 2027-08-01 2027-08-31 --filter 搬家
-python3 huangli-toolkit/toolkit.py search 甲子日 --year 2027
+python3 skills/zhongguo-nongli-huangli-jixiong/toolkit.py by-date 2027-08-08
+python3 skills/zhongguo-nongli-huangli-jixiong/toolkit.py batch 2027-08-01 2027-08-31 --filter 搬家
+python3 skills/zhongguo-nongli-huangli-jixiong/toolkit.py search 甲子日 --year 2027
 ```
 
 ## Clean-up policy

@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
 """CLI device authorization helper for Huangli toolkit.
 
-Usage:
-    python auth.py login
-    python auth.py register
-    python auth.py status
-    python auth.py login --print-shell
-    python auth.py login --append-zshrc
+Canonical usage (recommended from any project/root directory):
+    python3 skills/zhongguo-nongli-huangli-jixiong/auth.py login --username=<username> --password=<password>
+    python3 skills/zhongguo-nongli-huangli-jixiong/auth.py register --username=<username> --email=<email>
+    python3 skills/zhongguo-nongli-huangli-jixiong/auth.py status
+
+Short usage (only when current directory is this installed skill folder):
+    python3 auth.py login --username=<username> --password=<password>
+    python3 auth.py register --username=<username> --email=<email>
+    python3 auth.py status
+    python3 auth.py login --print-shell
+    python3 auth.py login --append-zshrc
 
 Default local writes:
     ~/.huangli_token.json   Saved token payload
@@ -100,7 +105,7 @@ def show_status():
     token = (saved or {}).get('access_token') or env_token
     if not token:
         print('Token status: missing')
-        print('Hint: run `python huangli-toolkit/auth.py login` first.')
+        print('Hint: run `python3 skills/zhongguo-nongli-huangli-jixiong/auth.py login --username=<name> --password=<password>` first.')
         return 1
 
     try:
@@ -133,7 +138,8 @@ def main():
         action = positional[0].strip().lower()
 
     if action not in {'login', 'register', 'status'}:
-        print('Usage: python auth.py [login|register|status] [--print-shell] [--append-zshrc]', file=sys.stderr)
+        print('Usage (canonical): python3 skills/zhongguo-nongli-huangli-jixiong/auth.py [login|register|status] [--print-shell] [--append-zshrc]', file=sys.stderr)
+        print('Usage (short, only inside skill folder): python3 auth.py [login|register|status] [--print-shell] [--append-zshrc]', file=sys.stderr)
         sys.exit(1)
 
     if action == 'status':
