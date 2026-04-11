@@ -1,7 +1,7 @@
 # Install Guide
 
 This package ships one skill folder:
-- `huangli-toolkit`
+- `zhongguo-nongli-huangli-jixiong`
 
 ## Step 1: Install the skill
 
@@ -14,33 +14,33 @@ clawhub install zhongguo-nongli-huangli-jixiong
 
 ### Manual install
 
-Copy `huangli-toolkit/` into your client’s skill directory.
+Copy `zhongguo-nongli-huangli-jixiong/` into your client’s skill directory.
 
 #### Cursor
 
 ```bash
 mkdir -p .cursor/skills/huangli
-cp -R huangli-toolkit .cursor/skills/huangli/
+cp -R zhongguo-nongli-huangli-jixiong .cursor/skills/huangli/
 ```
 
 #### Claude Code
 
 ```bash
 mkdir -p ~/.claude/skills/huangli
-cp -R huangli-toolkit ~/.claude/skills/huangli/
+cp -R zhongguo-nongli-huangli-jixiong ~/.claude/skills/huangli/
 ```
 
 #### OpenClaw
 
 ```bash
 mkdir -p ~/.openclaw/skills/huangli
-cp -R huangli-toolkit ~/.openclaw/skills/huangli/
+cp -R zhongguo-nongli-huangli-jixiong ~/.openclaw/skills/huangli/
 ```
 
 #### Other skill-capable clients
 
 1. Locate the client skill directory
-2. Copy `huangli-toolkit/`
+2. Copy `zhongguo-nongli-huangli-jixiong/`
 3. Restart the client or refresh skill indexing
 
 ---
@@ -77,7 +77,7 @@ export HUANGLI_BASE="https://api.nongli.skill.4glz.com"
 #### 4) 验证是否可用
 
 ```bash
-python3 huangli-toolkit/toolkit.py by-date 2027-08-08
+python3 skills/zhongguo-nongli-huangli-jixiong/toolkit.py by-date 2027-08-08
 curl "$HUANGLI_BASE/api/quota" \
   -H "Authorization: Bearer $HUANGLI_TOKEN"
 ```
@@ -100,7 +100,7 @@ curl "$HUANGLI_BASE/api/quota" \
 如果你不想改动 shell 配置，可使用：
 
 ```bash
-python3 huangli-toolkit/auth.py login --print-shell
+python3 skills/zhongguo-nongli-huangli-jixiong/auth.py login --print-shell
 ```
 
 #### 2) 在终端发起授权
@@ -108,13 +108,13 @@ python3 huangli-toolkit/auth.py login --print-shell
 已有账号：
 
 ```bash
-python3 huangli-toolkit/auth.py login
+python3 skills/zhongguo-nongli-huangli-jixiong/auth.py login
 ```
 
 新用户：
 
 ```bash
-python3 huangli-toolkit/auth.py register
+python3 skills/zhongguo-nongli-huangli-jixiong/auth.py register
 ```
 
 #### 2) 在浏览器中完成确认
@@ -132,13 +132,13 @@ source ~/.huangli.env
 #### 4) 检查当前状态
 
 ```bash
-python3 huangli-toolkit/auth.py status
+python3 skills/zhongguo-nongli-huangli-jixiong/auth.py status
 ```
 
 #### 5) 验证是否可用
 
 ```bash
-python3 huangli-toolkit/toolkit.py by-date 2027-08-08
+python3 skills/zhongguo-nongli-huangli-jixiong/toolkit.py by-date 2027-08-08
 curl "$HUANGLI_BASE/api/quota" \
   -H "Authorization: Bearer $HUANGLI_TOKEN"
 ```
@@ -146,8 +146,8 @@ curl "$HUANGLI_BASE/api/quota" \
 #### 6) 可选命令
 
 ```bash
-python3 huangli-toolkit/auth.py login --print-shell
-python3 huangli-toolkit/auth.py login --append-zshrc
+python3 skills/zhongguo-nongli-huangli-jixiong/auth.py login --print-shell
+python3 skills/zhongguo-nongli-huangli-jixiong/auth.py login --append-zshrc
 ```
 
 ---

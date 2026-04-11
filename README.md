@@ -10,8 +10,8 @@
 
 这是一个可直接提供给 Agent / CLI / Skill 客户端使用的统一黄历技能包。
 
-它包含一个技能目录：
-- `huangli-toolkit`
+它包含一个源码技能目录：
+- `huangli-toolkit`（发布 slug：`zhongguo-nongli-huangli-jixiong`）
 
 支持三种常见使用方式：
 - `by-date`：查询某一天黄历
@@ -20,7 +20,7 @@
 
 ---
 
-## 先安装 Skill
+## 先安装 Skill（生产环境推荐）
 
 ```bash
 clawhub login
@@ -67,9 +67,9 @@ export HUANGLI_BASE="https://api.nongli.skill.4glz.com"
 #### 第 5 步：开始使用
 
 ```bash
-python3 huangli-toolkit/toolkit.py by-date 2027-08-08
-python3 huangli-toolkit/toolkit.py batch 2027-08-01 2027-08-31 --filter 搬家
-python3 huangli-toolkit/toolkit.py search 甲子日 --year 2027
+python3 skills/zhongguo-nongli-huangli-jixiong/toolkit.py by-date 2027-08-08
+python3 skills/zhongguo-nongli-huangli-jixiong/toolkit.py batch 2027-08-01 2027-08-31 --filter 搬家
+python3 skills/zhongguo-nongli-huangli-jixiong/toolkit.py search 甲子日 --year 2027
 ```
 
 ---
@@ -102,7 +102,7 @@ clawhub install zhongguo-nongli-huangli-jixiong
 如果你不希望改动 shell 配置，可优先使用：
 
 ```bash
-python3 huangli-toolkit/auth.py login --print-shell
+python3 skills/zhongguo-nongli-huangli-jixiong/auth.py login --print-shell
 ```
 
 #### 第 3 步：在本地终端发起授权
@@ -110,13 +110,13 @@ python3 huangli-toolkit/auth.py login --print-shell
 已有账号：
 
 ```bash
-python3 huangli-toolkit/auth.py login
+python3 skills/zhongguo-nongli-huangli-jixiong/auth.py login
 ```
 
 新用户：
 
 ```bash
-python3 huangli-toolkit/auth.py register
+python3 skills/zhongguo-nongli-huangli-jixiong/auth.py register
 ```
 
 #### 第 3 步：在浏览器中完成确认
@@ -137,15 +137,15 @@ source ~/.huangli.env
 如果你想检查当前状态：
 
 ```bash
-python3 huangli-toolkit/auth.py status
+python3 skills/zhongguo-nongli-huangli-jixiong/auth.py status
 ```
 
 #### 第 5 步：开始使用
 
 ```bash
-python3 huangli-toolkit/toolkit.py by-date 2027-08-08
-python3 huangli-toolkit/toolkit.py batch 2027-08-01 2027-08-31 --filter 搬家
-python3 huangli-toolkit/toolkit.py search 甲子日 --year 2027
+python3 skills/zhongguo-nongli-huangli-jixiong/toolkit.py by-date 2027-08-08
+python3 skills/zhongguo-nongli-huangli-jixiong/toolkit.py batch 2027-08-01 2027-08-31 --filter 搬家
+python3 skills/zhongguo-nongli-huangli-jixiong/toolkit.py search 甲子日 --year 2027
 ```
 
 ---
@@ -161,16 +161,16 @@ python3 huangli-toolkit/toolkit.py search 甲子日 --year 2027
 ### 安全
 
 - 推荐优先使用 `auth.py` 做 CLI 授权
-- `python3 huangli-toolkit/auth.py status` 可检查当前 token 是否仍可使用
+- `python3 skills/zhongguo-nongli-huangli-jixiong/auth.py status` 可检查当前 token 是否仍可使用
 - CLI 模式默认写入 `~/.huangli_token.json` 与 `~/.huangli.env`
 - 只有显式使用 `--append-zshrc` 时才会修改 `~/.zshrc`
-- 如果你不希望修改 shell 配置，优先使用网页模式，或使用 `python3 huangli-toolkit/auth.py login --print-shell`
+- 如果你不希望修改 shell 配置，优先使用网页模式，或使用 `python3 skills/zhongguo-nongli-huangli-jixiong/auth.py login --print-shell`
 - logout 与“取消绑定设备”必须在网页控制台完成
 
 ## 更多内容
 
 - 安装到不同客户端：`INSTALL.md`
-- 统一技能定义：`huangli-toolkit/SKILL.md`
+- 统一技能定义（源码目录）：`huangli-toolkit/SKILL.md`
 - 贡献与发布规范：`CONTRIBUTING.md`
 
 ## License

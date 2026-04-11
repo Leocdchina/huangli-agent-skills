@@ -9,8 +9,8 @@
 
 This repository provides one ready-to-use Huangli skill package for end users.
 
-It ships one skill folder:
-- `huangli-toolkit`
+It ships one source skill folder:
+- `huangli-toolkit` (published slug: `zhongguo-nongli-huangli-jixiong`)
 
 Supported usage modes:
 - `by-date` — query one specific date
@@ -19,7 +19,7 @@ Supported usage modes:
 
 ---
 
-## Install the skill first
+## Install the skill first (recommended for production)
 
 ```bash
 clawhub login
@@ -66,9 +66,9 @@ export HUANGLI_BASE="https://api.nongli.skill.4glz.com"
 #### Step 5: Start using the toolkit
 
 ```bash
-python3 huangli-toolkit/toolkit.py by-date 2027-08-08
-python3 huangli-toolkit/toolkit.py batch 2027-08-01 2027-08-31 --filter 搬家
-python3 huangli-toolkit/toolkit.py search 甲子日 --year 2027
+python3 skills/zhongguo-nongli-huangli-jixiong/toolkit.py by-date 2027-08-08
+python3 skills/zhongguo-nongli-huangli-jixiong/toolkit.py batch 2027-08-01 2027-08-31 --filter 搬家
+python3 skills/zhongguo-nongli-huangli-jixiong/toolkit.py search 甲子日 --year 2027
 ```
 
 ---
@@ -102,7 +102,7 @@ only if you explicitly pass `--append-zshrc`
 If you do not want shell config changes, you can use:
 
 ```bash
-python3 huangli-toolkit/auth.py login --print-shell
+python3 skills/zhongguo-nongli-huangli-jixiong/auth.py login --print-shell
 ```
 
 #### Step 3: Start CLI authorization
@@ -110,13 +110,13 @@ python3 huangli-toolkit/auth.py login --print-shell
 If you already have an account:
 
 ```bash
-python3 huangli-toolkit/auth.py login
+python3 skills/zhongguo-nongli-huangli-jixiong/auth.py login
 ```
 
 If you are a new user:
 
 ```bash
-python3 huangli-toolkit/auth.py register
+python3 skills/zhongguo-nongli-huangli-jixiong/auth.py register
 ```
 
 #### Step 3: Complete approval in the browser
@@ -137,15 +137,15 @@ source ~/.huangli.env
 To check status:
 
 ```bash
-python3 huangli-toolkit/auth.py status
+python3 skills/zhongguo-nongli-huangli-jixiong/auth.py status
 ```
 
 #### Step 5: Start using the toolkit
 
 ```bash
-python3 huangli-toolkit/toolkit.py by-date 2027-08-08
-python3 huangli-toolkit/toolkit.py batch 2027-08-01 2027-08-31 --filter 搬家
-python3 huangli-toolkit/toolkit.py search 甲子日 --year 2027
+python3 skills/zhongguo-nongli-huangli-jixiong/toolkit.py by-date 2027-08-08
+python3 skills/zhongguo-nongli-huangli-jixiong/toolkit.py batch 2027-08-01 2027-08-31 --filter 搬家
+python3 skills/zhongguo-nongli-huangli-jixiong/toolkit.py search 甲子日 --year 2027
 ```
 
 ---
@@ -161,16 +161,16 @@ python3 huangli-toolkit/toolkit.py search 甲子日 --year 2027
 ### Security
 
 - `auth.py` is the recommended way to authorize CLI usage
-- `python3 huangli-toolkit/auth.py status` checks whether the current token still works
+- `python3 skills/zhongguo-nongli-huangli-jixiong/auth.py status` checks whether the current token still works
 - CLI mode writes `~/.huangli_token.json` and `~/.huangli.env` by default
 - `~/.zshrc` is modified only if you explicitly use `--append-zshrc`
-- If you do not want shell config changes, prefer web mode or use `python3 huangli-toolkit/auth.py login --print-shell`
+- If you do not want shell config changes, prefer web mode or use `python3 skills/zhongguo-nongli-huangli-jixiong/auth.py login --print-shell`
 - logout and device unbinding must be done in the web dashboard
 
 ## More
 
 - Client install guide: `INSTALL.md`
-- Unified skill definition: `huangli-toolkit/SKILL.md`
+- Unified skill definition (source folder): `huangli-toolkit/SKILL.md`
 - Contribution and release standard: `CONTRIBUTING.md`
 
 ## License
