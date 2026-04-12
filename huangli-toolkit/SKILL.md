@@ -9,6 +9,13 @@ required_env:
   - HUANGLI_TOKEN
 optional_env:
   - HUANGLI_BASE
+required_environment_variables:
+  - name: HUANGLI_TOKEN
+    required: true
+    required_for: API calls to api.nongli.skill.4glz.com
+  - name: HUANGLI_BASE
+    required: false
+    required_for: Override API base URL (default already set)
 config_paths:
   - ~/.huangli_token.json
   - ~/.huangli.env
