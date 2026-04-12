@@ -6,8 +6,13 @@ repository: https://github.com/Leocdchina/huangli-agent-skills
 publisher: Leocdchina
 compatibility: Requires Python 3.9+ or bash with curl. This skill uses included Python scripts (`toolkit.py`, `auth.py`) and requires HTTPS outbound access to api.nongli.skill.4glz.com. You must either set HUANGLI_TOKEN manually (recommended for web mode) or run canonical commands from any working directory: `python3 skills/zhongguo-nongli-huangli-jixiong/auth.py login --username=<name> --password=<password>` / `python3 skills/zhongguo-nongli-huangli-jixiong/auth.py register --username=<name> --email=<mail>`. Short form `python3 auth.py ...` is only for cases where current directory is already the installed skill folder. `auth.py` writes tokens to `~/.huangli_token.json` and shell exports to `~/.huangli.env` by default; it only modifies `~/.zshrc` if you explicitly pass `--append-zshrc`. `HUANGLI_BASE` is optional.
 required_env:
-  - HUANGLI_TOKEN (required)
-  - HUANGLI_BASE (optional)
+  - HUANGLI_TOKEN
+optional_env:
+  - HUANGLI_BASE
+config_paths:
+  - ~/.huangli_token.json
+  - ~/.huangli.env
+  - ~/.zshrc (only when --append-zshrc is used)
 outbound_hosts:
   - api.nongli.skill.4glz.com
 description: |
