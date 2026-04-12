@@ -11,22 +11,23 @@ Short usage (only when current directory is this installed skill folder):
     python3 auth.py register --username=<username> --email=<email>
     python3 auth.py status
     python3 auth.py login --print-shell
-    python3 auth.py login --append-zshrc
 
-Default local writes:
-    ~/.huangli_token.json   Saved token payload
-    ~/.huangli.env          Shell exports for current token
-
-Optional local write:
-    ~/.zshrc               Only modified when --append-zshrc is used
+Security behavior:
+    - Does not write token/env files by default.
+    - Does not modify shell profile files (e.g. ~/.zshrc).
+    - Prints shell exports for one-session use.
 
 Env vars:
-    HUANGLI_BASE           Optional API base, default https://api.nongli.skill.4glz.com
-    HUANGLI_TOKEN_FILE     Optional output path, default ~/.huangli_token.json
-    HUANGLI_ENV_FILE       Optional shell env file, default ~/.huangli.env
+    HUANGLI_BASE       Optional API base, default https://api.nongli.skill.4glz.com
+    HUANGLI_USERNAME   Optional default username for CLI login/register
+    HUANGLI_EMAIL      Optional default email for CLI register
+    HUANGLI_PASSWORD   Optional password override for CLI login/register
+    HUANGLI_TOKEN      Token for status verify / direct API calls
 """
 import json
 import os
+import secrets
+import string
 import sys
 import time
 import webbrowser
@@ -34,9 +35,6 @@ import urllib.request
 import urllib.error
 
 BASE = os.environ.get('HUANGLI_BASE', 'https://api.nongli.skill.4glz.com').rstrip('/')
-TOKEN_FILE = os.path.expanduser(os.environ.get('HUANGLI_TOKEN_FILE', '~/.huangli_token.json'))
-ENV_FILE = os.path.expanduser(os.environ.get('HUANGLI_ENV_FILE', '~/.huangli.env'))
-ZSHRC_FILE = os.path.expanduser('~/.zshrc')
 
 
 def post_json(url, payload):
@@ -52,6 +50,35 @@ def get_json(url, headers=None):
         return resp.getcode(), json.loads(resp.read())
 
 
+def random_password(length=18):
+    alphabet = string.ascii_letters + string.digits
+    return ''.join(secrets.choice(alphabet) for _ in range(length))
+
+
+def read_flag(flag_name):
+    prefix = f'{flag_name}='
+    for arg in sys.argv[1:]:
+        if arg.startswith(prefix):
+            return arg[len(prefix):].strip()
+    return ''
+
+
+def read_option(flag_name, env_name=''):
+    value = read_flag(flag_name)
+    if value:
+        return value
+    key = env_name or flag_name.lstrip('-').replace('-', '_').upper()
+    return os.environ.get(key, '').strip()
+
+
+def mask_secret(value, keep=4):
+    if not value:
+        return ''
+    if len(value) <= keep:
+        return '*' * len(value)
+    return '*' * max(0, len(value) - keep) + value[-keep:]
+
+
 def shell_quote(value):
     return value.replace("'", "'\"'\"'")
 
@@ -63,49 +90,14 @@ def shell_exports(access_token, base_url):
     )
 
 
-def write_env_file(access_token, base_url):
-    with open(ENV_FILE, 'w', encoding='utf-8') as f:
-        f.write(shell_exports(access_token, base_url))
-
-
-def append_to_zshrc():
-    snippet = f"\n# Huangli CLI\n[ -f '{ENV_FILE}' ] && source '{ENV_FILE}'\n"
-    existing = ''
-    if os.path.exists(ZSHRC_FILE):
-        with open(ZSHRC_FILE, 'r', encoding='utf-8') as f:
-            existing = f.read()
-    if f"source '{ENV_FILE}'" not in existing:
-        with open(ZSHRC_FILE, 'a', encoding='utf-8') as f:
-            f.write(snippet)
-        return True
-    return False
-
-
-def load_saved_token():
-    if not os.path.exists(TOKEN_FILE):
-        return None
-    try:
-        with open(TOKEN_FILE, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-        token = data.get('access_token')
-        return data if token else None
-    except Exception:
-        return None
-
-
 def show_status():
     print('=== Huangli CLI Status ===')
     print(f'API Base: {BASE}')
-    print(f'Token file: {TOKEN_FILE} ({"exists" if os.path.exists(TOKEN_FILE) else "missing"})')
-    print(f'Env file: {ENV_FILE} ({"exists" if os.path.exists(ENV_FILE) else "missing"})')
-    print(f'Zshrc: {ZSHRC_FILE} ({"exists" if os.path.exists(ZSHRC_FILE) else "missing"})')
 
-    saved = load_saved_token()
-    env_token = os.environ.get('HUANGLI_TOKEN', '').strip()
-    token = (saved or {}).get('access_token') or env_token
+    token = os.environ.get('HUANGLI_TOKEN', '').strip()
     if not token:
         print('Token status: missing')
-        print('Hint: run `python3 skills/zhongguo-nongli-huangli-jixiong/auth.py login --username=<name> --password=<password>` first.')
+        print('Hint: export HUANGLI_TOKEN first, or run login/register and source printed exports.')
         return 1
 
     try:
@@ -131,22 +123,49 @@ def show_status():
 def main():
     action = 'login'
     print_shell = '--print-shell' in sys.argv
-    append_zshrc = '--append-zshrc' in sys.argv
 
     positional = [arg for arg in sys.argv[1:] if not arg.startswith('--')]
     if positional:
         action = positional[0].strip().lower()
 
     if action not in {'login', 'register', 'status'}:
-        print('Usage (canonical): python3 skills/zhongguo-nongli-huangli-jixiong/auth.py [login|register|status] [--print-shell] [--append-zshrc]', file=sys.stderr)
-        print('Usage (short, only inside skill folder): python3 auth.py [login|register|status] [--print-shell] [--append-zshrc]', file=sys.stderr)
+        print('Usage (canonical): python3 skills/zhongguo-nongli-huangli-jixiong/auth.py [login|register|status] [--username=<name>] [--email=<email>] [--password=<password>] [--print-shell]', file=sys.stderr)
+        print('Usage (short, only inside skill folder): python3 auth.py [login|register|status] [--username=<name>] [--email=<email>] [--password=<password>] [--print-shell]', file=sys.stderr)
         sys.exit(1)
 
     if action == 'status':
         sys.exit(show_status())
 
+    username = read_option('--username', 'HUANGLI_USERNAME')
+    email = read_option('--email', 'HUANGLI_EMAIL')
+    password = read_option('--password', 'HUANGLI_PASSWORD')
+
+    if action == 'login':
+        if not username:
+            print('Error: login requires --username or HUANGLI_USERNAME', file=sys.stderr)
+            sys.exit(1)
+        if not password:
+            print('Error: login requires --password or HUANGLI_PASSWORD', file=sys.stderr)
+            sys.exit(1)
+    else:
+        if not username:
+            print('Error: register requires --username or HUANGLI_USERNAME', file=sys.stderr)
+            sys.exit(1)
+        if not email:
+            email = f'{username}@cli.local'
+        if not password:
+            password = random_password()
+
+    start_payload = {
+        'action': action,
+        'username': username,
+        'password': password,
+    }
+    if action == 'register':
+        start_payload['email'] = email
+
     try:
-        _, start = post_json(f'{BASE}/api/auth/cli/device/start', {'action': action})
+        _, start = post_json(f'{BASE}/api/auth/cli/device/start', start_payload)
     except urllib.error.HTTPError as e:
         print(f'Error: HTTP {e.code} while starting device auth', file=sys.stderr)
         print(e.read().decode('utf-8', errors='replace'), file=sys.stderr)
@@ -162,8 +181,13 @@ def main():
 
     print('\n=== Huangli CLI Authorization ===')
     print(f'Action: {action}')
+    print(f'Username: {start.get("username") or username}')
+    if action == 'register':
+        print(f'Email: {email}')
+        print(f'Generated password: {password}')
+        print(f'Masked password: {mask_secret(password)}')
     print(f'User code: {user_code}')
-    print(f'Open this URL in your browser:\n{verify_url}\n')
+    print(f'Open this URL in your browser and confirm device binding:\n{verify_url}\n')
 
     try:
         webbrowser.open(verify_url)
@@ -184,7 +208,7 @@ def main():
                 data = {'error': body or f'HTTP {e.code}'}
 
             if e.code == 428 and data.get('error') == 'authorization_pending':
-                print('Waiting for browser authorization...')
+                print('Waiting for browser device confirmation...')
                 interval = int(data.get('interval', interval))
                 continue
             if e.code == 429 and data.get('error') == 'slow_down':
@@ -197,27 +221,19 @@ def main():
             print(f'Network error: {e.reason}', file=sys.stderr)
             sys.exit(1)
 
-        with open(TOKEN_FILE, 'w', encoding='utf-8') as f:
-            json.dump(data, f, ensure_ascii=False, indent=2)
-        write_env_file(data['access_token'], BASE)
-        zshrc_updated = append_to_zshrc() if append_zshrc else False
         exports = shell_exports(data['access_token'], BASE).strip()
 
         print('Authorization successful.')
-        print(f'Tokens saved to: {TOKEN_FILE}')
-        print(f'Shell env saved to: {ENV_FILE}')
-        print('No shell config files are changed unless you explicitly use --append-zshrc.')
-        if append_zshrc:
-            print('Updated ~/.zshrc to source ~/.huangli.env' if zshrc_updated else '~/.zshrc already sources ~/.huangli.env')
-        print(f"\nsource '{ENV_FILE}'")
+        print('No local token/env files were written.')
+        print('No shell profile files were modified.')
         if print_shell:
             print('\n# shell exports')
             print(exports)
         else:
-            print(f"export HUANGLI_TOKEN='{data['access_token']}'")
-            print(f"export HUANGLI_BASE='{BASE}'")
-        print('\nNote: logout and device unbinding must be done from the web dashboard for security.')
-        print('If you do not want persistent shell changes, use --print-shell and avoid --append-zshrc.')
+            print('\nRun in your current shell session:')
+            print(exports)
+        print('For persistence, store HUANGLI_TOKEN via your own secret manager or shell profile policy.')
+        print('Note: logout and device unbinding must be done from the web dashboard for security.')
         break
 
 

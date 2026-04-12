@@ -4,7 +4,7 @@ license: MIT
 homepage: https://nongli.skill.4glz.com
 repository: https://github.com/Leocdchina/huangli-agent-skills
 publisher: Leocdchina
-compatibility: Requires Python 3.9+ or bash with curl. This skill uses included Python scripts (`toolkit.py`, `auth.py`) and requires HTTPS outbound access to api.nongli.skill.4glz.com. You must either set HUANGLI_TOKEN manually (recommended for web mode) or run canonical commands from any working directory: `python3 skills/zhongguo-nongli-huangli-jixiong/auth.py login --username=<name> --password=<password>` / `python3 skills/zhongguo-nongli-huangli-jixiong/auth.py register --username=<name> --email=<mail>`. Short form `python3 auth.py ...` is only for cases where current directory is already the installed skill folder. `auth.py` writes tokens to `~/.huangli_token.json` and shell exports to `~/.huangli.env` by default; it only modifies `~/.zshrc` if you explicitly pass `--append-zshrc`. `HUANGLI_BASE` is optional.
+compatibility: Requires Python 3.9+ or bash with curl. This skill uses included Python scripts (`toolkit.py`, `auth.py`) and requires HTTPS outbound access to api.nongli.skill.4glz.com. You must either set HUANGLI_TOKEN manually (recommended for managed environments) or run canonical commands from any working directory: `python3 skills/zhongguo-nongli-huangli-jixiong/auth.py login --username=<name> --password=<password>` / `python3 skills/zhongguo-nongli-huangli-jixiong/auth.py register --username=<name> --email=<mail>`. Short form `python3 auth.py ...` is only for cases where current directory is already the installed skill folder. `auth.py` does not modify shell profiles and does not write token files by default; it prints session exports for explicit user execution. `HUANGLI_BASE` is optional.
 required_env:
   - HUANGLI_TOKEN
 optional_env:
@@ -16,18 +16,14 @@ required_environment_variables:
   - name: HUANGLI_BASE
     required: false
     required_for: Override API base URL (default already set)
-config_paths:
-  - ~/.huangli_token.json
-  - ~/.huangli.env
-  - ~/.zshrc (only when --append-zshrc is used)
 outbound_hosts:
   - api.nongli.skill.4glz.com
 description: |
   中国农历黄历吉凶 · Zhongguo Nongli Huangli Jixiong · China Lunar Almanac (Auspicious & Inauspicious).
   Runtime transparency (important):
   - Requires `HUANGLI_TOKEN` for API calls (`HUANGLI_BASE` optional)
-  - CLI auth writes token files to user home by default: `~/.huangli_token.json` and `~/.huangli.env`
-  - `~/.zshrc` is modified only when `--append-zshrc` is explicitly used
+  - CLI auth returns token to current process and prints shell exports for explicit user execution
+  - Does not modify `~/.zshrc` and does not write `~/.huangli_token.json` / `~/.huangli.env` by default
   Keywords / 关键词: 中国农历, 黄历, 老黄历, 农历查询, 吉凶, 吉日, 宜忌, 择日, 搬家吉日, 结婚吉日, 开业吉日, Chinese lunar calendar, Chinese almanac, Huangli, Nongli, auspicious day, inauspicious day, lucky date, wedding date selection, move-in date selection, feng shui date, jixiong.
 
   Unified Huangli skill for common workflows: single-date query, date-range batch query,
@@ -71,9 +67,9 @@ description: |
 ### CLI 模式
 - 推荐从任意目录执行：`python3 skills/zhongguo-nongli-huangli-jixiong/auth.py login` 或 `python3 skills/zhongguo-nongli-huangli-jixiong/auth.py register`
 - 若当前目录已在技能安装目录，才可使用短命令：`python3 auth.py ...`
-- 默认写入 `~/.huangli_token.json` 与 `~/.huangli.env`
-- 只有显式传入 `--append-zshrc` 时才会修改 `~/.zshrc`
-- 可用 `python3 skills/zhongguo-nongli-huangli-jixiong/auth.py login --print-shell` 仅打印导出命令，减少持久化配置修改
+- 默认不写入 `~/.huangli_token.json` / `~/.huangli.env`
+- 不修改 `~/.zshrc`
+- 通过标准输出返回 `export` 命令，由用户自行决定是否在当前 shell 执行
 
 可直接配置环境变量，或使用内置安全 CLI 授权：
 
