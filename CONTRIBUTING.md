@@ -33,6 +33,20 @@ Not allowed:
 
 Use this repository release order as the standard process.
 
+### Mandatory metadata transparency rules (must pass before release)
+
+For `huangli-toolkit/SKILL.md`, frontmatter must explicitly disclose runtime requirements and persistence behavior:
+
+- `required_env` must include `HUANGLI_TOKEN`
+- `optional_env` must include `HUANGLI_BASE`
+- `config_paths` must include:
+  - `~/.huangli_token.json`
+  - `~/.huangli.env`
+  - `~/.zshrc (only when --append-zshrc is used)`
+- `outbound_hosts` must include `api.nongli.skill.4glz.com`
+
+Do not publish if frontmatter/runtime behavior is inconsistent.
+
 ### 1) Prepare content
 
 Before publishing, make sure all of the following are true:
@@ -115,6 +129,14 @@ Before marking a release complete, confirm:
 - Git tag exists
 - GitHub Release exists
 - version numbers match across all channels
+- published ClawHub `SKILL.md` still contains required transparency fields (`required_env`, `optional_env`, `config_paths`, `outbound_hosts`)
+
+Suggested post-publish verification commands:
+
+```bash
+clawhub inspect zhongguo-nongli-huangli-jixiong --version <x.y.z> --file SKILL.md
+clawhub inspect zhongguo-nongli-huangli-jixiong --json
+```
 
 ### 7) Versioning rules
 
