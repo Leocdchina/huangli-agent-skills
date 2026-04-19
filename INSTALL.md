@@ -118,7 +118,7 @@ source ~/.huangli.env
 
 ## Troubleshooting
 
-- `401`: token missing/invalid/expired
+- `401`: token missing/invalid
 - `429`: daily quota exceeded; reset in dashboard
 - Skill not triggering: confirm folder is in correct client skill directory
 - Logout / device unbind must be done in web dashboard

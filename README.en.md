@@ -51,7 +51,6 @@ Best for users who want to:
 From the dashboard you can:
 - view today’s quota
 - copy your token
-- refresh your access token
 - manage bound CLI devices
 - log out
 
@@ -167,6 +166,7 @@ python3 skills/zhongguo-nongli-huangli-jixiong/toolkit.py search 甲子日 --yea
 
 - `auth.py` is the recommended way to authorize CLI usage
 - `python3 skills/zhongguo-nongli-huangli-jixiong/auth.py status` checks whether the current token still works
+- Current auth mode uses long-lived access tokens (no refresh endpoint required)
 - CLI mode writes `~/.huangli_token.json` and `~/.huangli.env` by default
 - `~/.zshrc` is modified only if you explicitly use `--append-zshrc`
 - If you do not want shell config changes, prefer web mode or use `python3 skills/zhongguo-nongli-huangli-jixiong/auth.py login --print-shell`
