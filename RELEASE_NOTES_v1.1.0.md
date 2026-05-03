@@ -55,3 +55,44 @@ python3 skills/zhongguo-nongli-huangli-jixiong/toolkit.py search 甲子日 --yea
 ## Clean-up policy
 
 Previous split skills are cleaned up from this standalone package and replaced by the unified toolkit.
+
+---
+
+## v1.2.0
+
+### New: Agent Mode — Fully Autonomous AI Authentication
+
+AI Agent can now register an account and obtain a valid `HUANGLI_TOKEN` without any human intervention.
+
+**How it works:**
+
+Standard CLI flow requires browser confirmation (human-in-the-loop). Agent mode (`mode=agent`) skips browser confirmation entirely, using username+password as identity proof, and returns `access_token` in a single API call.
+
+**Backend changes** (`/api/auth/cli/device/start`):
+- New `mode=agent` parameter
+- In agent mode: after validating credentials, the server returns `access_token` immediately
+- No browser confirmation, no polling needed
+- Supports both `action=login` and `action=register`
+
+**auth.py changes:**
+- New `--agent` flag
+- New `HUANGLI_AUTO_AGENT=1` environment variable (auto-detect)
+- New `cmd_agent()` function — one-step token acquisition
+- Existing browser-based flow remains unchanged
+
+**Usage for AI Agent:**
+```bash
+export HUANGLI_USERNAME="myuser"
+export HUANGLI_PASSWORD="mypassword"
+export HUANGLI_AUTO_AGENT=1
+
+python3 skills/zhongguo-nongli-huangli-jixiong/auth.py login
+# → access_token returned immediately, no browser, no polling
+```
+
+```bash
+# Or with explicit --agent flag:
+python3 skills/zhongguo-nongli-huangli-jixiong/auth.py register --username=myuser --email=me@example.com --password=mypass --agent
+```
+
+**Published:** ClawHub v1.6.0
