@@ -76,7 +76,60 @@ def mask_secret(value, keep=4):
         return ''
     if len(value) <= keep:
         return '*' * len(value)
-    return '*' * max(0, len(value) - keep) + value[-keep:]
+    return '*' * (len(value) - keep) + value[-keep:]
+
+
+def cmd_agent(action, username, email, password):
+    """One-step agent mode: mode=agent, no browser, no polling."""
+    start_payload = {
+        'action': action,
+        'username': username,
+        'password': password,
+        'mode': 'agent',
+    }
+    if action == 'register':
+        start_payload['email'] = email
+
+    try:
+        code, data = post_json(f'{BASE}/api/auth/cli/device/start', start_payload)
+    except urllib.error.HTTPError as e:
+        body = e.read().decode('utf-8', errors='replace')
+        try:
+            err_json = json.loads(body)
+            body = err_json.get('error', err_json.get('message', body))
+        except Exception:
+            pass
+        print(f'Error: HTTP {e.code} — {body}', file=sys.stderr)
+        return 1
+    except urllib.error.URLError as e:
+        print(f'Error: Cannot connect to {BASE}\n{e.reason}', file=sys.stderr)
+        return 1
+
+    err = data.get('error')
+    if err:
+        print(f"Error: {data.get('message') or err}", file=sys.stderr)
+        return 1
+
+    token = data.get('access_token')
+    if not token:
+        print('Error: No access_token in agent-mode response', file=sys.stderr)
+        return 1
+
+    exports = shell_exports(token, BASE).strip()
+    print(f'\nAgent mode authorization successful (mode=agent, one-step).')
+    print(f'Username: {data.get("username")}')
+    if action == 'register':
+        print(f'Email: {email}')
+        print(f'Generated password: {password}')
+        print(f'Masked password: {mask_secret(password)}')
+    if print_shell:
+        print('\n# shell exports')
+        print(exports)
+    else:
+        print('\nRun in your current shell session:')
+        print(exports)
+    print('\nFor persistence, store HUANGLI_TOKEN via your own secret manager.')
+    return 0
 
 
 def shell_quote(value):
@@ -121,16 +174,20 @@ def show_status():
 
 
 def main():
+    global print_shell
     action = 'login'
     print_shell = '--print-shell' in sys.argv
+    agent_mode = '--agent' in sys.argv or read_option('--mode') == 'agent'
+    auto_agent = os.environ.get('HUANGLI_AUTO_AGENT', '').strip().lower() in {'1', 'true', 'yes'}
+    agent_mode = agent_mode or auto_agent
 
     positional = [arg for arg in sys.argv[1:] if not arg.startswith('--')]
     if positional:
         action = positional[0].strip().lower()
 
     if action not in {'login', 'register', 'status'}:
-        print('Usage (canonical): python3 skills/zhongguo-nongli-huangli-jixiong/auth.py [login|register|status] [--username=<name>] [--email=<email>] [--password=<password>] [--print-shell]', file=sys.stderr)
-        print('Usage (short, only inside skill folder): python3 auth.py [login|register|status] [--username=<name>] [--email=<email>] [--password=<password>] [--print-shell]', file=sys.stderr)
+        print('Usage (canonical): python3 skills/zhongguo-nongli-huangli-jixiong/auth.py [login|register|status] [--username=<name>] [--email=<email>] [--password=<password>] [--agent] [--print-shell]', file=sys.stderr)
+        print('Usage (short, only inside skill folder): python3 auth.py [login|register|status] [--username=<name>] [--email=<email>] [--password=<password>] [--agent] [--print-shell]', file=sys.stderr)
         sys.exit(1)
 
     if action == 'status':
@@ -140,6 +197,23 @@ def main():
     email = read_option('--email', 'HUANGLI_EMAIL')
     password = read_option('--password', 'HUANGLI_PASSWORD')
 
+    # ── Agent mode: one-step, no browser ────────────────────────────────────
+    if agent_mode:
+        if not username:
+            print('Error: agent mode requires --username or HUANGLI_USERNAME', file=sys.stderr)
+            sys.exit(1)
+        if action == 'login':
+            if not password and not os.environ.get('HUANGLI_PASSWORD'):
+                print('Error: agent mode login requires --password or HUANGLI_PASSWORD', file=sys.stderr)
+                sys.exit(1)
+        if action == 'register':
+            if not email:
+                email = f'{username}@agent.local'
+            if not password:
+                password = random_password()
+        sys.exit(cmd_agent(action, username, email, password))
+
+    # ── Standard browser-based device authorization flow ─────────────────────
     if action == 'login':
         if not username:
             print('Error: login requires --username or HUANGLI_USERNAME', file=sys.stderr)
