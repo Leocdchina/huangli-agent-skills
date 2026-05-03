@@ -9,6 +9,10 @@ required_env:
   - HUANGLI_TOKEN
 optional_env:
   - HUANGLI_BASE
+  - HUANGLI_USERNAME
+  - HUANGLI_PASSWORD
+  - HUANGLI_EMAIL
+  - HUANGLI_AUTO_AGENT
 required_environment_variables:
   - name: HUANGLI_TOKEN
     required: true
@@ -22,6 +26,7 @@ description: |
   中国农历黄历吉凶 · Zhongguo Nongli Huangli Jixiong · China Lunar Almanac (Auspicious & Inauspicious).
   Runtime transparency (important):
   - Requires `HUANGLI_TOKEN` for API calls (`HUANGLI_BASE` optional)
+  - **Agent mode** (recommended for AI use): `--agent` flag or `HUANGLI_AUTO_AGENT=1` env var; one POST, no browser, no polling, access_token returned immediately
   - CLI auth returns token to current process and prints shell exports for explicit user execution
   - Does not modify `~/.zshrc` and does not write `~/.huangli_token.json` / `~/.huangli.env` by default
   Keywords / 关键词: 中国农历, 黄历, 老黄历, 农历查询, 吉凶, 吉日, 宜忌, 择日, 搬家吉日, 结婚吉日, 开业吉日, Chinese lunar calendar, Chinese almanac, Huangli, Nongli, auspicious day, inauspicious day, lucky date, wedding date selection, move-in date selection, feng shui date, jixiong.
